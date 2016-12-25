@@ -1,0 +1,26 @@
+{
+  "name": "graphql-react-starter",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon ./server.js --exec babel-node",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jan Carlo Viray <jancarloviray.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-cli": "^6.18.0",
+    "babel-preset-env": "^1.1.4",
+    "nodemon": "^1.11.0"
+  },
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "cors": "^2.8.1",
+    "express": "^4.14.0",
+    "graphql": "^0.8.2",
+    "graphql-server-express": "^0.4.3",
+    "graphql-tools": "^0.8.4",
+    "lodash": "^4.17.3"
+  }
+}
