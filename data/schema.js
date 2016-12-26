@@ -1,15 +1,12 @@
 import { makeExecutableSchema } from 'graphql-tools'
 import resolvers from './resolvers'
 
-const schema = `
-# TYPES
-# -----------------------------
+// Separate GraphQL schema by types. In a real
 
-# Here is a description for Author 
-# that will be parsed in GraphiQL
+const types = [`
+# This description for Author will be parsed in GraphiQL
 type Author {
-    # Here is a field description 
-    # that will also be parsed
+    # This description also will be parsed
     id: Int!
     firstName: String
     lastName: String
@@ -22,32 +19,36 @@ type Post {
     author: Author 
     votes: Int
 }
+`]
 
-# QUERIES ALLOWED
-# -----------------------------
-
+const queries = [`
 type Query {
     posts: [Post],
     authors: [Author]
 }
+`]
 
-# MUTATIONS ALLOWED
-# -----------------------------
-
+const mutations = [`
 type Mutation {
     upvotePost (
         postId: Int!
     ): Post
 }
+`]
 
-# ROOT
-# -----------------------------
-
+const root = [`
 schema {
     query: Query 
     mutation: Mutation
 }
-`
+`]
+
+const schema = [
+    ...types,
+    ...queries,
+    ...mutations,
+    ...root
+]
 
 export default makeExecutableSchema({
     typeDefs: schema,
