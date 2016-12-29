@@ -10,22 +10,25 @@ npm run seed
 npm start
 ```
 
-## Workflow
+## Commands
 
 Note that most commands are dependent upon having NODE_ENV=production|development
 
 ```shell
 # create new migration script template
-npm run migrate:make add-dashed-description-here
+npm run make:migrate add-dashed-description-here
 
 # create seed
-npm run seed:make
+npm run make:seed
 
 # seed to latest
-npm run seed:run
+npm run seed
 
 # migrate to latest
-npm run migrate:latest
+npm run migrate
+
+# start local server 
+npm start
 ```
 
 ## Schema-First Design Steps
