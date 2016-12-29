@@ -15,7 +15,10 @@ module.exports = {
         useNullAsDefault: true,
         pool: {
             min: 1,
-            max: 10
+            max: 10,
+            afterCreate: function(conn, cb){
+                conn.run('PRAGMA foreign_keys=ON', cb)
+            }
         }
     },
     production: {
