@@ -1,8 +1,6 @@
 import { makeExecutableSchema } from 'graphql-tools'
 import resolvers from './resolvers'
 
-// Separate GraphQL schema by types. In a real
-
 const types = [`
 # This description for Author will be parsed in GraphiQL
 type Author {
@@ -31,7 +29,8 @@ type Query {
 const mutations = [`
 type Mutation {
     upvotePost (
-        postId: Int!
+        id: Int!
+        amount: Int
     ): Post
 }
 `]

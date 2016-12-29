@@ -5,6 +5,10 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon ./server.js --exec babel-node",
+    "make:migrate": "knex migrate:make $@",
+    "make:seed": "knex seed:make",
+    "migrate": "knex migrate:latest",
+    "seed": "knex seed:run",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Jan Carlo Viray <jancarloviray.com>",
@@ -12,6 +16,7 @@
   "devDependencies": {
     "babel-cli": "^6.18.0",
     "babel-preset-env": "^1.1.4",
+    "casual": "^1.5.8",
     "nodemon": "^1.11.0"
   },
   "dependencies": {
@@ -21,6 +26,8 @@
     "graphql": "^0.8.2",
     "graphql-server-express": "^0.4.3",
     "graphql-tools": "^0.8.4",
-    "lodash": "^4.17.3"
+    "knex": "^0.12.6",
+    "lodash": "^4.17.3",
+    "sqlite3": "^3.1.8"
   }
 }

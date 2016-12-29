@@ -3,15 +3,20 @@ import { graphqlExpress, graphiqlExpress } from 'graphql-server-express'
 import bodyParser from 'body-parser'
 import cors from 'cors'
 
-import schema from './data/schema'
+import schema from './src/server/api/schema'
 
 const GRAPHQL_PORT = 8080
 
 const graphQLServer = express().use('*', cors())
 
-graphQLServer.use('/graphql', bodyParser.json(), graphqlExpress({
-    schema,
-    context: {},
+graphQLServer.use('/graphql', bodyParser.json(), graphqlExpress((req) => {
+    let user // = req.session.user
+    return {
+        schema,
+        context: {
+            user,
+        },
+    }
 }))
 
 graphQLServer.use('/graphiql', graphiqlExpress({
@@ -23,6 +28,12 @@ graphQLServer.use('/schema', (req, res) => {
     res.send(printSchema(schema))
 })
 
-graphQLServer.listen(GRAPHQL_PORT, () => {
+const server = graphQLServer.listen(GRAPHQL_PORT, () => {
     console.log(`GraphQL Server is now running on http://localhost:${GRAPHQL_PORT}/graphql`)
+})
+
+// temp fix for nodemon EADDRINUSE
+const term = ['exit','uncaughtException','SIGTERM','SIGINT']
+term.forEach((message) => {
+    process.on(message, () => server.close())
 })

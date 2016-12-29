@@ -4,7 +4,28 @@
 
 ```shell
 npm install
+npm run migrate
+npm run seed
+
 npm start
+```
+
+## Workflow
+
+Note that most commands are dependent upon having NODE_ENV=production|development
+
+```shell
+# create new migration script template
+npm run migrate:make add-dashed-description-here
+
+# create seed
+npm run seed:make
+
+# seed to latest
+npm run seed:run
+
+# migrate to latest
+npm run migrate:latest
 ```
 
 ## Schema-First Design Steps
