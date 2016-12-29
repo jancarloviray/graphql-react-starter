@@ -2,6 +2,7 @@ import express from 'express'
 import { graphqlExpress, graphiqlExpress } from 'graphql-server-express'
 import bodyParser from 'body-parser'
 import cors from 'cors'
+import bookshelf from './src/db/lib/bookshelf'
 
 import schema from './src/server/api/schema'
 
@@ -39,5 +40,8 @@ process.stderr.on('data', function(data) {
 // temp fix for nodemon EADDRINUSE
 const term = ['exit','uncaughtException','SIGTERM','SIGINT']
 term.forEach((message) => {
-    process.on(message, () => server.close())
+    process.on(message, () => { 
+        bookshelf.knex.destroy()
+        server.close()
+    })
 })
