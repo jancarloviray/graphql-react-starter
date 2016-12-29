@@ -1,5 +1,17 @@
 # GraphQL React Starter
 
+## Core Technologies
+
+- Node
+- Express
+- GraphQL
+- Bookshelf ORM
+- MySQL / PostgreSQL
+- React 
+- React Router 
+- Redux 
+- Apollo GraphQL Client
+
 ## Installation
 
 ```shell
@@ -31,7 +43,7 @@ npm run migrate
 npm start
 ```
 
-## Roadmap
+## Roadmap and Plans
 
 - convert to bookshelf?
 - babelify everything
@@ -44,6 +56,8 @@ npm start
 - redux 
 - unit tests with jest and snapshots
 - mysql/postgres for production database
+- authentication
+- static queries 
 - add subscriptions
 - modularize models and graphql schema/mutations
 - dockerize
@@ -52,6 +66,7 @@ npm start
 - nginx config
 - universal? perhaps overkill?
 - Travis? Jenkins?
+- React Native
 
 ## Schema-First Design Steps
 
