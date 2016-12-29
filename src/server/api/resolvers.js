@@ -32,29 +32,29 @@ const resolverMap = {
     Query: {
         async posts() {
             const posts = await new Posts().fetchAll()
-            return posts.toJSON()
+            return posts ? posts.toJSON() : posts
         },
         async authors() {
             const authors = await new Authors().fetchAll()
-            return authors.toJSON()
+            return authors ? authors.toJSON() : authors
         }
     },
     Mutation: {
         async upvotePost(_, { id, amount }) {
             const post = await Posts.upVote(id, amount)
-            return post.toJSON()
+            return post ? post.toJSON() : post
         }
     },
     Author: {
         async posts(author) {
             const posts = await new Posts({ id: author.id }).fetchAll()
-            return posts.toJSON()
+            return posts ? posts.toJSON() : posts
         },
     },
     Post: {
         async author(post) {
             const author = await new Authors({ id: post.authorId }).fetch()
-            return author.toJSON()
+            return author ? author.toJSON() : author
         }
     }
 }
