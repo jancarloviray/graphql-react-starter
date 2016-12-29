@@ -9,8 +9,8 @@ exports.up = function (knex, Promise) {
         knex.schema.createTableIfNotExists('posts', (table) => {
             table.increments('id').primary()
             table.text('title')
-            table.integer('votes')
-            table.integer('authorId').references('id').inTable('author')
+            table.integer('voteCount')
+            table.integer('authorId').references('author.id')
         })
     ]).catch(reason => console.log(reason))
 };
