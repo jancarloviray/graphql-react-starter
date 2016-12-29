@@ -1,21 +1,18 @@
 import { find, filter } from 'lodash'
-import knex from './connector'
+import { Authors, Posts } from '../../db/model'
 
 /**
  * Resolvers:
  * 
- *  These functions mapped to the defined schema
+ *  These functions are mapped to the defined schema
+ *  signature: fieldName: (root, args, context, info) => result
  *  http://dev.apollodata.com/tools/graphql-tools/resolvers.html
  * 
- *  Resolver Function Signature:
- *  fieldName: (root, args, context, info) => result
- * 
  *      root: result returned from the resolver on the parent
- *      field, or if in top-level, the Query field, the
- *      rootValue passed from server configuration:
- *      http://dev.apollodata.com/tools/graphql-server/setup.html#graphqlOptions
+ *      field, or if in top-level like the Query field, the
+ *      rootValue passed from server configuration.
  *      This argument is what enables the nested nature of
- *      GraphQL queries
+ *      GraphQL queries.
  *
  *      args: an object with the arguments passed into the field
  *      in the query. For example, author(name: "Ada"), the args
@@ -29,38 +26,35 @@ import knex from './connector'
  *      info: the argument should only be used in advanced cases,
  *      but it contains information about the execution state of
  *      the query, including field name, path to field from root, etc
- *
- *  Note that resolvers are operated like a tree. Check this link:
- *  http://dev.apollodata.com/tools/graphql-tools/resolvers.html#Resolver-root-argument
  */
 
 const resolverMap = {
     Query: {
-        posts() {
-            return knex.select().from('posts')
+        async posts() {
+            const posts = await new Posts().fetchAll()
+            return posts.toJSON()
         },
-        authors() {
-            return knex.select().from('authors')
+        async authors() {
+            const authors = await new Authors().fetchAll()
+            return authors.toJSON()
         }
     },
     Mutation: {
-        upvotePost(_, { id, amount }) {
-            return knex('posts')
-                .where({ id })
-                .increment('votes', amount || 1)
-                .then(() => {
-                    return knex('posts').where({ id }).select('*').first()
-                })
+        async upvotePost(_, { id, amount }) {
+            const post = await Posts.upVote(id, amount)
+            return post.toJSON()
         }
     },
     Author: {
-        posts(author) {
-            return knex('posts').where({ id: author.id }).select('*')
+        async posts(author) {
+            const posts = await new Posts({ id: author.id }).fetchAll()
+            return posts.toJSON()
         },
     },
     Post: {
-        author(post) {
-            return knex('authors').where({ 'id': post.authorId }).select('*').first()
+        async author(post) {
+            const author = await new Authors({ id: post.authorId }).fetch()
+            return author.toJSON()
         }
     }
 }

@@ -32,6 +32,10 @@ const server = graphQLServer.listen(GRAPHQL_PORT, () => {
     console.log(`GraphQL Server is now running on http://localhost:${GRAPHQL_PORT}/graphql`)
 })
 
+process.stderr.on('data', function(data) {
+  console.log('ERROR: ', data);
+});
+
 // temp fix for nodemon EADDRINUSE
 const term = ['exit','uncaughtException','SIGTERM','SIGINT']
 term.forEach((message) => {

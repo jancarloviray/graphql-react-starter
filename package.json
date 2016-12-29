@@ -8,6 +8,8 @@
     "make:migrate": "knex migrate:make $@",
     "make:seed": "knex seed:make",
     "migrate": "knex migrate:latest",
+    "migrate:rollback": "knex migrate:rollback",
+    "debug:db": "sqlite3 dev-db.sqlite3 --cmd .schema",
     "seed": "knex seed:run",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -21,6 +23,7 @@
   },
   "dependencies": {
     "body-parser": "^1.15.2",
+    "bookshelf": "^0.10.2",
     "cors": "^2.8.1",
     "express": "^4.14.0",
     "graphql": "^0.8.2",
