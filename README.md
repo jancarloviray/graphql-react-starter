@@ -5,8 +5,9 @@
 - Node
 - Express
 - GraphQL
-- Bookshelf ORM
-- MySQL / PostgreSQL
+- Knex
+- PostgreSQL (prod)
+- Sqlite (dev) 
 - React 
 - React Router 
 - Redux 
@@ -31,7 +32,7 @@ Note that most commands are dependent upon having NODE_ENV=production|developmen
 npm run make:migrate add-dashed-description-here
 
 # create seed
-npm run make:seed
+npm run make:seed 002-second-seed
 
 # seed to latest
 npm run seed
@@ -39,13 +40,15 @@ npm run seed
 # migrate to latest
 npm run migrate
 
+# rollback last batch
+npm run migrate:rollback
+
 # start local server 
 npm start
 ```
 
 ## Roadmap and Plans
 
-- convert to bookshelf?
 - babelify everything
 - eslint
 - production vs development build
