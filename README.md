@@ -23,6 +23,28 @@ npm run seed
 npm start
 ```
 
+## Sample Schema 
+
+```
+      ┌─refId:userId
+      ▼        │                       ┌────────────────────┐
+┌───────────┐  │      ┌────────────┐   │<Transactions>      │
+│           │  │      │<Accounts>  │   │transactionId:pk    │
+│<Users>    │  │      │accountId:pk│   │transactionTypeId:fk│
+│userId:pk  │  │      │name        │   │accountId:fk        │
+│refId:fk   │──┘      │type        │◀──│sessionId           │
+│createdDate│         │total       │   │amount              │
+│name       │         │createdDate │   │note                │
+│           │         │updatedDate │   │createdDate         │
+└───────────┘         └────────────┘   └────────────────────┘
+      ▲                      ▲                    ▲
+      │ ┌──────────────────┐ │         ┌────────────────────┐
+      │ │<Users_Accounts>  │ │         │<TransactionTypes>  │
+      └─│userId:pk,fk      │─┘         │transactionTypeId:pk│
+        │accountId:pk,fk   │           │type                │
+        └──────────────────┘           └────────────────────┘
+```
+
 ## Commands
 
 Note that most commands are dependent upon having NODE_ENV=production|development
@@ -49,10 +71,10 @@ npm start
 
 ## Roadmap and Plans
 
-- sample db relationships
-- static queries 
-- data loaders and prevent N+1 problems
+- (done) sample db relationships 
 - modularize schema/resolvers
+- data loaders and prevent N+1 problems
+- static queries 
 - add subscriptions
 - nginx
 - nodemon / pm2
