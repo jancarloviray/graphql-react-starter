@@ -29,7 +29,7 @@ exports.up = function (knex, Promise) {
 
         .createTable('Users', (table) => {
             table.increments('userId').primary()
-            table.text('refId')
+            table.integer('refId')
                 .references('Users.userId')
                 .comment('Represents referral Id')
             table.text('name').notNullable()

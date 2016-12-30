@@ -15,47 +15,91 @@ import db from '../../db/lib/db'
 
 const resolverMap = {
     Query: {
-        async posts() {
-            return db
-                .select('*')
-                .from('posts')
+        async users() {
+            return db.select('*').from('Users')
         },
-        async authors() {
-            return db
+        async accounts() {
+            return db.select('*').from('Accounts')
+        },
+        async transactions() {
+            return db.select('*').from('Transactions')
+        },
+        async transactionTypes() {
+            return db.select('*').from('TransactionTypes')
+        },
+        async getWithdrawals(_, { accountId }) {
+            const query = await db
                 .select('*')
-                .from('authors')
+                .from('Transactions')
+                .where({
+                    transactionTypeId: 1,
+                    accountId,
+                })
+
+            return query ? query : null
+        },
+        async getDeposits(_, { accountId }) {
+            const query = await db
+                .select('*')
+                .from('Transactions')
+                .where({
+                    transactionTypeId: 2,
+                    accountId,
+                })
+
+            return query ? query : null
         }
     },
     Mutation: {
-        async upvotePost(_, { id, amount }) { 
-            await db
-                .increment('voteCount', amount || 1)
-                .from('posts')
-                .where({ id })
+    },
+
+    // resolving custom fields
+    User: {
+        async referrer(user) {
+            if (!user.refId) {
+                return null
+            }
 
             return db
                 .select('*')
-                .from('posts')
-                .where({ id })
+                .from('Users')
+                .where({ userId: user.refId })
                 .first()
+        },
+        async accounts(user) {
+            const query = await db
+                .select('Accounts.*')
+                .from('Users_Accounts')
+                .join('Accounts', 'Users_Accounts.accountId', 'Accounts.accountId')
+                .join('Users', 'Users_Accounts.userId', 'Users.userId')
+                .where('Users.userId', user.userId)
+
+            return query ? query : null
         }
     },
-    Author: {
-        async posts(author) {
-            return db
+    Account: {
+        async owners(account) {
+            const query = await db
+                .select('Users.*')
+                .from('Users_Accounts')
+                .join('Accounts', 'Users_Accounts.accountId', 'Accounts.accountId')
+                .join('Users', 'Users_Accounts.userId', 'Users.userId')
+                .where('Accounts.accountId', account.accountId)
+
+            return query ? query : null
+        }
+    },
+    Transaction: {
+        async account(transaction) {
+            return await db
                 .select('*')
-                .from('posts')
-                .where({ id: author.id })
+                .from('Accounts')
+                .where({ accountId: transaction.accountId })
+                .first()
         },
     },
-    Post: {
-        async author(post) {
-            return db
-                .select('*')
-                .from('authors')
-                .where({ id: post.authorId })
-                .first()
-        }
+    TransactionType: {
+
     }
 }
 

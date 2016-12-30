@@ -1,37 +1,81 @@
 import { makeExecutableSchema } from 'graphql-tools'
 import resolvers from './resolvers'
 
+// notice how UI specific these are, and not equal to db schema
+// and how these are singular compared to database (pluralized)
 const types = [`
-# This description for Author will be parsed in GraphiQL
-type Author {
-    # This description also will be parsed
-    id: Int!
-    firstName: String
-    lastName: String
-    posts: [Post]
+type User {
+    userId: Int!
+    referrer: User
+    createdDate: String
+    name: String!
+    accounts: [Account]
 }
 
-type Post {
-    id: Int!
-    title: String 
-    author: Author 
-    voteCount: Int
+type Account {
+    accountId: Int!
+    name: String
+    type: String
+    total: Int!
+    createdDate: String
+    updatedDate: String
+    owners: [User]
+}
+
+type Transaction {
+    transactionId: Int!
+    transactionTypeId: Int
+    account: Account
+    amount: Int!
+    note: String
+    createdDate: String
+}
+
+type TransactionType {
+    transactionTypeId: Int!
+    type: String
 }
 `]
 
 const queries = [`
 type Query {
-    posts: [Post],
-    authors: [Author]
+    users: [User]
+
+    accounts: [Account]
+
+    transactions: [Transaction]
+
+    transactionTypes: [TransactionType]
+
+    getWithdrawals(
+        accountId: Int!
+    ): [Transaction]
+
+    getDeposits(
+        accountId: Int!
+    ): [Transaction]
 }
 `]
 
 const mutations = [`
 type Mutation {
-    upvotePost (
-        id: Int!
-        amount: Int
-    ): Post
+    createUser(
+        name: String!,
+        referrer: Int
+    ): User
+
+    createAccount(
+        name: String,
+        type: Int,
+        total: Int
+    ): Account
+
+    createTransaction(
+        type: Int,
+        account: Int,
+        amount: Int,
+        note: String
+    ): Account
 }
 `]
 
