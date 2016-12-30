@@ -49,26 +49,32 @@ npm start
 
 ## Roadmap and Plans
 
-- babelify everything
-- eslint
+- sample db relationships
+- static queries 
+- modularize schema/resolvers
+- add subscriptions
+- nginx
+- nodemon / pm2
+- dockerize
+- postgres (prod) and sqlite (dev) must be compatible
+- nconf
 - production vs development build
-- add basic react 
-- add graphql client 
-- add webpack 2 and hot loader for clientside 
+- "harden" node server
+- integration tests: sqlite and pg 
+- unit tests 
+- es2015+ everything
+- eslint
+- react
+- graphql client 
+- webpack 2 and hot loader
 - react router 
 - redux 
-- unit tests with jest and snapshots
-- mysql/postgres for production database
 - authentication
-- static queries 
-- add subscriptions
-- modularize models and graphql schema/mutations
-- dockerize
-- extract out config.. use nconf?
-- nodemon vs pm2
-- nginx config
-- universal? perhaps overkill?
-- Travis? Jenkins?
+- apply best practices!
+- universal??? perhaps overkill..
+- CI: Travis? Jenkins?
+- deployment scripts
+- sample on heroku? aws? do? gcp?
 - React Native
 
 ## Schema-First Design Steps
