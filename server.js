@@ -2,7 +2,7 @@ import express from 'express'
 import { graphqlExpress, graphiqlExpress } from 'graphql-server-express'
 import bodyParser from 'body-parser'
 import cors from 'cors'
-import bookshelf from './src/db/lib/bookshelf'
+import db from './src/db/lib/db'
 
 import schema from './src/server/api/schema'
 
@@ -41,7 +41,7 @@ process.stderr.on('data', function(data) {
 const term = ['exit','uncaughtException','SIGTERM','SIGINT']
 term.forEach((message) => {
     process.on(message, () => { 
-        bookshelf.knex.destroy()
+        db.destroy()
         server.close()
     })
 })
