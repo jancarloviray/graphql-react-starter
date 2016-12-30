@@ -51,6 +51,7 @@ npm start
 
 - sample db relationships
 - static queries 
+- data loaders and prevent N+1 problems
 - modularize schema/resolvers
 - add subscriptions
 - nginx
