@@ -23,8 +23,8 @@ const users_accounts = _.times(10, () => ({
 }))
 
 const transactionTypes = [
-  { transactionTypeId: 1, type: 'withdraw' },
-  { transactionTypeId: 2, type: 'deposit' }
+  { transactionTypeId: 1, name: 'withdraw' },
+  { transactionTypeId: 2, name: 'deposit' }
 ]
 
 // on sql insert from app, must subtract or add from account, based on 

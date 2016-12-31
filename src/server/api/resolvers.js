@@ -3,103 +3,99 @@ import db from '../../db/lib/db'
 /**
  *  Resolvers are functions mapped to the defined schema
  *  (fieldName: (root, args, context, info) => result)
- *  http://dev.apollodata.com/tools/graphql-tools/resolvers.html
  * 
  *  `root`: result returned from the resolver of parent field. This argument 
  *  is what enables the nested nature of GraphQL.
- *  `args`: an object with the arguments passed into the field in the query.
- *  `context`: this is an object shared by all resolvers in a particular query 
+ *  `args`: arguments passed into the field in the query.
+ *  `context`: an object shared by all resolvers in a particular query 
  *  and is used to contain per-request state including auth info, dataloader 
- *  and anything else that should be taken into account when resolving the query
+ *  and anything that should be taken into account for the particular query
  */
 
 const resolverMap = {
     Query: {
-        async users() {
-            return db.select('*').from('Users')
+        async users(root, { userId }) {
+            return userId ?
+                db.select('*').from('Users').where({ userId }) :
+                db.select('*').from('Users').limit(5)
         },
-        async accounts() {
-            return db.select('*').from('Accounts')
+        async accounts(_, { accountId }) {
+            return accountId ?
+                db.select('*').from('Accounts').where({ accountId }) :
+                db.select('*').from('Accounts').limit(5)
         },
-        async transactions() {
-            return db.select('*').from('Transactions')
+        async transactions(_, args) {
+            return db.select('*').from('Transactions').where(args)
         },
         async transactionTypes() {
             return db.select('*').from('TransactionTypes')
         },
         async getWithdrawals(_, { accountId }) {
-            const query = await db
+            return await db
                 .select('*')
                 .from('Transactions')
                 .where({
                     transactionTypeId: 1,
                     accountId,
-                })
-
-            return query ? query : null
+                }) || null
         },
         async getDeposits(_, { accountId }) {
-            const query = await db
+            return await db
                 .select('*')
                 .from('Transactions')
                 .where({
                     transactionTypeId: 2,
                     accountId,
-                })
-
-            return query ? query : null
+                }) || null
         }
     },
     Mutation: {
+        async createUser(_, args) {
+            return await db.insert(args).into('Users').returning('*')
+        },
+        async createAccount(_, args) {
+            return await db.insert(args).into('Accounts').returning('*')
+        },
+        async createTransaction(_, args) {
+            args.sessionId = 'someRandomSesseionGUID'
+            return await db.insert(args).into('Transactions').returning('*')
+        }
     },
-
-    // resolving custom fields
     User: {
-        async referrer(user) {
-            if (!user.refId) {
-                return null
-            }
-
-            return db
+        async referrer({ refId }) {
+            return refId ? db
                 .select('*')
                 .from('Users')
-                .where({ userId: user.refId })
-                .first()
+                .where({ userId: refId })
+                .first() : null
         },
-        async accounts(user) {
-            const query = await db
+        async accounts({ userId }) {
+            return await db
                 .select('Accounts.*')
                 .from('Users_Accounts')
                 .join('Accounts', 'Users_Accounts.accountId', 'Accounts.accountId')
                 .join('Users', 'Users_Accounts.userId', 'Users.userId')
-                .where('Users.userId', user.userId)
-
-            return query ? query : null
+                .where('Users.userId', userId) || null
         }
     },
     Account: {
-        async owners(account) {
-            const query = await db
+        async owners({ accountId }) {
+            return await db
                 .select('Users.*')
                 .from('Users_Accounts')
                 .join('Accounts', 'Users_Accounts.accountId', 'Accounts.accountId')
                 .join('Users', 'Users_Accounts.userId', 'Users.userId')
-                .where('Accounts.accountId', account.accountId)
-
-            return query ? query : null
+                .where('Accounts.accountId', accountId) || null
         }
     },
     Transaction: {
-        async account(transaction) {
+        async account({ accountId }) {
             return await db
                 .select('*')
                 .from('Accounts')
-                .where({ accountId: transaction.accountId })
-                .first()
-        },
-    },
-    TransactionType: {
-
+                .where({ accountId: accountId })
+                .first() || null
+        }
     }
 }
 

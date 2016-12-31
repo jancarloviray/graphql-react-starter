@@ -15,7 +15,7 @@
       │ ┌──────────────────┐ │         ┌────────────────────┐
       │ │<Users_Accounts>  │ │         │<TransactionTypes>  │
       └─│userId:pk,fk      │─┘         │transactionTypeId:pk│
-        │accountId:pk,fk   │           │type                │
+        │accountId:pk,fk   │           │name                │
         └──────────────────┘           └────────────────────┘
 */
 
@@ -35,6 +35,7 @@ exports.up = function (knex, Promise) {
             table.text('name').notNullable()
             table.dateTime('createdDate').defaultTo(knex.fn.now())
         })
+
         .createTable('Accounts', (table) => {
             table.increments('accountId').primary()
             table.string('name')
@@ -48,16 +49,19 @@ exports.up = function (knex, Promise) {
                 .notNullable()
                 .defaultTo(knex.fn.now())
         })
+
         .createTable('Users_Accounts', (table) => {
             table.integer('accountId')
                 .references('Accounts.accountId')
             table.integer('userId')
                 .references('Users.userId')
         })
+
         .createTable('TransactionTypes', (table) => {
             table.increments('transactionTypeId')
-            table.string('type').notNullable()
+            table.string('name').notNullable()
         })
+
         .createTable('Transactions', (table) => {
             table.increments('transactionId').primary()
             table.integer('transactionTypeId')

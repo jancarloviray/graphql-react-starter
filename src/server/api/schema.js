@@ -6,44 +6,65 @@ import resolvers from './resolvers'
 const types = [`
 type User {
     userId: Int!
-    referrer: User
     createdDate: String
     name: String!
+
+    # Referrer is an existing User 
+    # that gets credit for referring a 
+    # new User.
+    referrer: User
+
+    # User's currently available accounts
     accounts: [Account]
 }
 
 type Account {
     accountId: Int!
     name: String
+    # Defines checking or saving
     type: String
     total: Int!
     createdDate: String
     updatedDate: String
+
+    # Defines who owns this account
     owners: [User]
 }
 
 type Transaction {
     transactionId: Int!
     transactionTypeId: Int
-    account: Account
     amount: Int!
     note: String
     createdDate: String
+
+    # What account is this transaction 
+    # made to?
+    account: Account
 }
 
+# Used for Transaction.type and defines 
+# whether an account is checking or savings
 type TransactionType {
     transactionTypeId: Int!
-    type: String
+    name: String
 }
 `]
 
 const queries = [`
 type Query {
-    users: [User]
+    users(
+        userId: Int 
+    ): [User]
 
-    accounts: [Account]
+    accounts(
+        accountId: Int
+    ): [Account]
 
-    transactions: [Transaction]
+    transactions(
+        transactionId: Int
+        transactionTypeId: Int
+    ): [Transaction]
 
     transactionTypes: [TransactionType]
 
@@ -59,23 +80,27 @@ type Query {
 
 const mutations = [`
 type Mutation {
+    # Creates a new User and returns its Id
     createUser(
         name: String!,
-        referrer: Int
-    ): User
+        # Id of another User who referred this current one
+        refId: Int
+    ): [Int]
 
+    # Creates a new Account and returns its Id
     createAccount(
         name: String,
-        type: Int,
+        type: String,
         total: Int
-    ): Account
+    ): [Int]
 
+    # Creates a new Transaction and returns its Id
     createTransaction(
-        type: Int,
-        account: Int,
+        transactionTypeId: Int,
+        accountId: Int,
         amount: Int,
         note: String
-    ): Account
+    ): [Int]
 }
 `]
 
