@@ -1,16 +1,17 @@
 # GraphQL React Starter
 
+GraphQL Node.js Starter Kit is a boilerplate using [Node.js](https://nodejs.org/), [JavaScript](https://developer.mozilla.org/docs/Web/JavaScript) through [Babel](http://babeljs.io/) and using [GraphQL](http://graphql.org/) for API creations and consumption. For client-side, this uses React, React-Router and Redux.
+
 ## Core Technologies
 
 - Node
-- Express
 - GraphQL
-- Knex
-- PostgreSQL (prod)
-- Sqlite (dev) 
+- PostgreSQL
 - React 
 - React Router 
 - Redux 
+- Knex
+- Sqlite
 - Apollo GraphQL Client
 
 ## Installation
@@ -23,7 +24,7 @@ npm run seed
 npm start
 ```
 
-## Sample Schema 
+## Schema 
 
 ```
         ┌──refId:userId
@@ -125,3 +126,6 @@ Check out `./data/resolvers.js` as an example.
 
 Mocking APIs are typically time consuming and often becomes a waste as API changes. [graphql-tools](http://dev.apollodata.com/tools/graphql-tools/mocking.html) has a mocking library that allows you to map values based on types or field names. Very useful, especially if synchronized with mocking library like faker.js or casual.js 
 
+### Create or Update Database
+
+Being that GraphQL is an abstraction that is somewhat geared towards UI requirements, there should be no pressure to map a one-to-one schema between GraphQL schema and Database Schema. Through the resolver, we can morph and transform and even fetch extra data without being constricted with the database schema. This allows for faster iteration and prototyping.

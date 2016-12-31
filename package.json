@@ -3,17 +3,26 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "keywords": [
+    "Node.js",
+    "GraphQL",
+    "React",
+    "Knex.js",
+    "Postgres",
+    "Apollo",
+    "Redux"
+  ],
+  "homepage": "https://github.com/jancarloviray/graphql-react-starter#graphql-react-starter",
   "scripts": {
     "start": "nodemon ./server.js --exec babel-node",
     "make:migrate": "knex migrate:make $@",
     "make:seed": "knex seed:make",
     "migrate": "knex migrate:latest",
     "migrate:rollback": "knex migrate:rollback",
-    "debug:db": "sqlite3 dev-db.sqlite3 --cmd .schema",
     "seed": "knex seed:run",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Jan Carlo Viray <jancarloviray.com>",
+  "author": "Jan Carlo Viray <www.jancarloviray.com>",
   "license": "MIT",
   "devDependencies": {
     "babel-cli": "^6.18.0",
