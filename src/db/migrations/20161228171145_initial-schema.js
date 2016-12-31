@@ -1,22 +1,27 @@
 
 /*
-      ┌─refId:userId
-      ▼        │                       ┌────────────────────┐
-┌───────────┐  │      ┌────────────┐   │<Transactions>      │
-│           │  │      │<Accounts>  │   │transactionId:pk    │
-│<Users>    │  │      │accountId:pk│   │transactionTypeId:fk│
-│userId:pk  │  │      │name        │   │accountId:fk        │
-│refId:fk   │──┘      │type        │◀──│sessionId           │
-│createdDate│         │total       │   │amount              │
-│name       │         │createdDate │   │note                │
-│           │         │updatedDate │   │createdDate         │
-└───────────┘         └────────────┘   └────────────────────┘
-      ▲                      ▲                    ▲
-      │ ┌──────────────────┐ │         ┌────────────────────┐
-      │ │<Users_Accounts>  │ │         │<TransactionTypes>  │
-      └─│userId:pk,fk      │─┘         │transactionTypeId:pk│
-        │accountId:pk,fk   │           │name                │
-        └──────────────────┘           └────────────────────┘
+        ┌──refId:userId
+        │          │
+        ▼          │
+┌───────────────┐  │  ┌─────────────────┐     ┌──────────────────────┐
+│    <Users>    │  │  │   <Accounts>    │     │    <Transactions>    │
+│               │  │  │                 │     │                      │
+│   userId:pk   │  │  │  accountId:pk   │     │   transactionId:pk   │
+│   refId:fk    │  │  │      name       │     │ transactionTypeId:fk │
+│  createdDate  │──┘  │      type       │◀────│     accountId:fk     │
+│     name      │     │      total      │     │      sessionId       │
+│               │     │   createdDate   │     │        amount        │
+│               │     │   updatedDate   │     │         note         │
+│               │     │                 │     │     createdDate      │
+└───────────────┘     └─────────────────┘     └──────────────────────┘
+        ▲                      ▲                          ▲
+        │                      │                          │
+        │ ┌──────────────────┐ │              ┌──────────────────────┐
+        │ │ <Users_Accounts> │ │              │  <TransactionTypes>  │
+        │ │                  │ │              │                      │
+        └─│   userId:pk,fk   │─┘              │ transactionTypeId:pk │
+          │ accountId:pk,fk  │                │         name         │
+          └──────────────────┘                └──────────────────────┘
 */
 
 exports.up = function (knex, Promise) {
