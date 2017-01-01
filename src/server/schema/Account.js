@@ -17,7 +17,7 @@ const schema = [`
 
 const resolvers = {
     Account: {
-        async owners({ accountId }, { db }) {
+        async owners({ accountId }) {
             return await db
                 .select('Users.*')
                 .from('Users_Accounts')

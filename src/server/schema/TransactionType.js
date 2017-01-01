@@ -1,5 +1,3 @@
-import db from '../../db/lib/db'
-
 const schema = [`
     # Used for Transaction.type and defines 
     # whether an account is checking or savings

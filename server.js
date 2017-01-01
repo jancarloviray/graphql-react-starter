@@ -1,5 +1,6 @@
 import express from 'express'
 import { graphqlExpress, graphiqlExpress } from 'graphql-server-express'
+import { printSchema } from 'graphql'
 import bodyParser from 'body-parser'
 import cors from 'cors'
 import db from './src/db/lib/db'
@@ -10,7 +11,7 @@ const GRAPHQL_PORT = 8080
 
 const graphQLServer = express().use('*', cors())
 
-graphQLServer.use('/graphql', bodyParser.json(), graphqlExpress((req) => {
+graphQLServer.use('/graphql', bodyParser.json(), graphqlExpress((/*req*/) => {
     let user // = req.session.user
     return {
         schema,
@@ -30,7 +31,7 @@ graphQLServer.use('/schema', (req, res) => {
 })
 
 const server = graphQLServer.listen(GRAPHQL_PORT, () => {
-    console.log(`GraphQL Server is now running on http://localhost:${GRAPHQL_PORT}/graphql`)
+    console.log(`GraphQL Server is now running on http://localhost:${GRAPHQL_PORT}/graphql`) // eslint-disable-line
 })
 
 // temp fix for nodemon EADDRINUSE

@@ -24,7 +24,7 @@
           └──────────────────┘                └──────────────────────┘
 */
 
-exports.up = function (knex, Promise) {
+exports.up = function (knex) {
     return knex.schema
         .dropTableIfExists('Users')
         .dropTableIfExists('Accounts')
@@ -86,13 +86,13 @@ exports.up = function (knex, Promise) {
                 .notNullable()
                 .defaultTo(knex.fn.now())
         })
-};
+}
 
-exports.down = function (knex, Promise) {
+exports.down = function (knex) {
     return knex.schema
         .dropTableIfExists('Users')
         .dropTableIfExists('Accounts')
         .dropTableIfExists('Users_Accounts')
         .dropTableIfExists('Transactions')
         .dropTableIfExists('TransactionTypes')
-};
+}

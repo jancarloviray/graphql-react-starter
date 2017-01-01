@@ -1,17 +1,19 @@
 # GraphQL React Starter
 
-GraphQL Node.js Starter Kit is a bloat-less, ORM-free boilerplate using [Node.js](https://nodejs.org/), [JavaScript](https://developer.mozilla.org/docs/Web/JavaScript) through [Babel](http://babeljs.io/) and using [GraphQL](http://graphql.org/) for API creations and consumption. For client-side, this uses [React](https://facebook.github.io/react/), [React-Router](https://github.com/ReactTraining/react-router) and [Redux](https://github.com/reactjs/redux). For the database portion, this uses [PostgreSQL](https://www.postgresql.org/) and [SQLite](http://sqlite.org/), accessed through a great query-builder, [Knex.js](http://knexjs.org/)
+GraphQL Node.js Starter is a bloat-less, ORM-free boilerplate using [Node.js](https://nodejs.org/), [JavaScript](https://developer.mozilla.org/docs/Web/JavaScript) through [Babel](http://babeljs.io/) and using [GraphQL](http://graphql.org/) for API creations and consumption. For client-side, this uses [React](https://facebook.github.io/react/), [React-Router](https://github.com/ReactTraining/react-router) and [Redux](https://github.com/reactjs/redux). For the database portion, this uses [PostgreSQL](https://www.postgresql.org/) and [SQLite](http://sqlite.org/), accessed through a great query-builder, [Knex.js](http://knexjs.org/)
 
 The purpose of this starter kit is to be as real-world starter as possible while being simple and bloat-free. As far as making this [Universal App](https://medium.com/@mjackson/universal-javascript-4761051b7ae9), it will not be part of the road-map as it's not always needed and often causes code bloat and more issues.
 
 ## Installation
 
-```shell
-npm install
-npm run migrate
-npm run seed
+You need [Yarn](https://yarnpkg.com/en/docs/install) as [npm](https://www.npmjs.com/) alternative. [Why?](https://github.com/yarnpkg/yarn) Offline mode, deterministic installation, network performance and resilience.
 
-npm start
+```shell
+yarn install
+yarn run migrate
+yarn run seed
+
+yarn start
 ```
 
 ## Schema 
@@ -47,22 +49,22 @@ Note that most commands are dependent upon having NODE_ENV=production|developmen
 
 ```shell
 # create new migration script template
-npm run make:migrate add-dashed-description-here
+yarn run make:migrate add-dashed-description-here
 
 # create seed
-npm run make:seed 002-second-seed
+yarn run make:seed 002-second-seed
 
 # seed to latest
-npm run seed
+yarn run seed
 
 # migrate to latest
-npm run migrate
+yarn run migrate
 
 # rollback last batch
-npm run migrate:rollback
+yarn run migrate:rollback
 
 # start local server 
-npm start
+yarn start
 ```
 
 ## Roadmap and Plans
@@ -70,7 +72,6 @@ npm start
 - (done) sample db relationships 
 - (done) modularize schema/resolvers
 - add subscriptions
-- nconf
 - production vs development build
 - es2015+ everything
 - eslint

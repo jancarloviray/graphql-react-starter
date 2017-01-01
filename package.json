@@ -19,6 +19,8 @@
     "make:seed": "knex seed:make",
     "migrate": "knex migrate:latest",
     "migrate:rollback": "knex migrate:rollback",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "seed": "knex seed:run",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -28,7 +30,11 @@
     "babel-cli": "^6.18.0",
     "babel-preset-env": "^1.1.4",
     "casual": "^1.5.8",
-    "nodemon": "^1.11.0"
+    "eslint": "^3.12.2",
+    "eslint-plugin-babel": "^4.0.0",
+    "eslint-plugin-react": "^6.8.0",
+    "nodemon": "^1.11.0",
+    "sqlite3": "^3.1.8"
   },
   "dependencies": {
     "body-parser": "^1.15.2",
@@ -39,6 +45,9 @@
     "graphql-tools": "^0.8.4",
     "knex": "^0.12.6",
     "lodash": "^4.17.3",
-    "sqlite3": "^3.1.8"
+    "pg": "^6.1.2",
+    "react": "^15.4.1",
+    "react-redux": "^5.0.1",
+    "redux": "^3.6.0"
   }
 }
