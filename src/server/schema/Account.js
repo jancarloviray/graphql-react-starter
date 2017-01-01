@@ -1,6 +1,6 @@
 import db from '../../db/lib/db'
 
-const schema = [`
+export const schema = [`
     type Account {
         accountId: Int!
         name: String
@@ -15,7 +15,7 @@ const schema = [`
     }
 `]
 
-const resolvers = {
+export const resolvers = {
     Account: {
         async owners({ accountId }) {
             return await db
@@ -26,9 +26,4 @@ const resolvers = {
                 .where('Accounts.accountId', accountId) || null
         }
     },
-}
-
-export default {
-    schema,
-    resolvers
 }

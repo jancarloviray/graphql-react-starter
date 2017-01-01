@@ -1,6 +1,6 @@
 import db from '../../db/lib/db'
 
-const schema = [`
+export const schema = [`
     type Query {
         users(
             userId: Int 
@@ -27,7 +27,7 @@ const schema = [`
     }
 `]
 
-const resolvers = {
+export const resolvers = {
     Query: {
         async users(root, { userId }) {
             return userId ?
@@ -64,9 +64,4 @@ const resolvers = {
                 }) || null
         }
     }
-}
-
-export default {
-    schema,
-    resolvers
 }

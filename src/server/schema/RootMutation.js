@@ -1,6 +1,6 @@
 import db from '../../db/lib/db'
 
-const schema = [`
+export const schema = [`
     type Mutation {
         # Creates a new User and returns its Id
         createUser(
@@ -26,7 +26,7 @@ const schema = [`
     }
 `]
 
-const resolvers = {
+export const resolvers = {
     Mutation: {
         async createUser(_, args) {
             return await db.insert(args).into('Users').returning('*')
@@ -39,9 +39,4 @@ const resolvers = {
             return await db.insert(args).into('Transactions').returning('*')
         }
     },
-}
-
-export default {
-    schema,
-    resolvers
 }

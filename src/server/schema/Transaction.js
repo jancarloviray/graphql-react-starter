@@ -1,6 +1,6 @@
 import db from '../../db/lib/db'
 
-const schema = [`
+export const schema = [`
     type Transaction {
         transactionId: Int!
         transactionTypeId: Int
@@ -14,7 +14,7 @@ const schema = [`
     }
 `]
 
-const resolvers = {
+export const resolvers = {
     Transaction: {
         async account({ accountId }) {
             return await db
@@ -24,9 +24,4 @@ const resolvers = {
                 .first() || null
         }
     }
-}
-
-export default {
-    schema,
-    resolvers
 }

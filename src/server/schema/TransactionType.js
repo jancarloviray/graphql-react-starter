@@ -1,4 +1,4 @@
-const schema = [`
+export const schema = [`
     # Used for Transaction.type and defines 
     # whether an account is checking or savings
     type TransactionType {
@@ -7,11 +7,6 @@ const schema = [`
     }
 `]
 
-const resolvers = {
+export const resolvers = {
     TransactionType: {}
-}
-
-export default {
-    schema,
-    resolvers
 }

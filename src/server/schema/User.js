@@ -1,6 +1,6 @@
 import db from '../../db/lib/db'
 
-const schema = [`
+export const schema = [`
     type User {
         userId: Int!
         createdDate: String
@@ -16,7 +16,7 @@ const schema = [`
     }
 `]
 
-const resolvers = {
+export const resolvers = {
     User: {
         async referrer({ refId }) {
             return refId ? db
@@ -34,9 +34,4 @@ const resolvers = {
                 .where('Users.userId', userId) || null
         }
     }
-}
-
-export default {
-    schema,
-    resolvers
 }
