@@ -10,8 +10,8 @@ You need [Yarn](https://yarnpkg.com/en/docs/install) as [npm](https://www.npmjs.
 
 ```shell
 yarn install
-yarn run migrate
-yarn run seed
+yarn migrate
+yarn seed
 
 yarn start
 ```
@@ -49,19 +49,25 @@ Note that most commands are dependent upon having NODE_ENV=production|developmen
 
 ```shell
 # create new migration script template
-yarn run make:migrate add-dashed-description-here
+yarn make:migrate add-dashed-description-here
 
 # create seed
-yarn run make:seed 002-second-seed
+yarn make:seed 002-second-seed
 
 # seed to latest
-yarn run seed
+yarn seed
 
 # migrate to latest
-yarn run migrate
+yarn migrate
 
 # rollback last batch
-yarn run migrate:rollback
+yarn migrate:rollback
+
+# lint project files
+yarn lint
+
+# lint auto-fix 
+yarn lint -- --fix
 
 # start local server 
 yarn start
@@ -74,7 +80,7 @@ yarn start
 - add subscriptions
 - production vs development build
 - es2015+ everything
-- eslint
+- (done) eslint
 - react
 - graphql client 
 - webpack 2 and hot loader

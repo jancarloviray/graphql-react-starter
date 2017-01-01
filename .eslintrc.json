@@ -14,7 +14,8 @@
         "sourceType": "module"
     },
     "plugins": [
-        "react"
+        "react",
+        "graphql"
     ],
     "rules": {
         "indent": [
