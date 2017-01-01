@@ -1,18 +1,8 @@
 # GraphQL React Starter
 
-GraphQL Node.js Starter Kit is a boilerplate using [Node.js](https://nodejs.org/), [JavaScript](https://developer.mozilla.org/docs/Web/JavaScript) through [Babel](http://babeljs.io/) and using [GraphQL](http://graphql.org/) for API creations and consumption. For client-side, this uses React, React-Router and Redux.
+GraphQL Node.js Starter Kit is a bloat-less, ORM-free boilerplate using [Node.js](https://nodejs.org/), [JavaScript](https://developer.mozilla.org/docs/Web/JavaScript) through [Babel](http://babeljs.io/) and using [GraphQL](http://graphql.org/) for API creations and consumption. For client-side, this uses [React](https://facebook.github.io/react/), [React-Router](https://github.com/ReactTraining/react-router) and [Redux](https://github.com/reactjs/redux). For the database portion, this uses [PostgreSQL](https://www.postgresql.org/) and [SQLite](http://sqlite.org/), accessed through a great query-builder, [Knex.js](http://knexjs.org/)
 
-## Core Technologies
-
-- Node
-- GraphQL
-- PostgreSQL
-- React 
-- React Router 
-- Redux 
-- Knex
-- Sqlite
-- Apollo GraphQL Client
+The purpose of this starter kit is to be as real-world starter as possible while being simple and bloat-free. As far as making this [Universal App](https://medium.com/@mjackson/universal-javascript-4761051b7ae9), it will not be part of the road-map as it's not always needed and often causes code bloat and more issues.
 
 ## Installation
 
@@ -97,7 +87,6 @@ npm start
 - static queries 
 - "harden" node server
 - unit tests 
-- universal (perhaps overkill?)
 - [jenkins](https://jenkins.io/)
 - deployment scripts
 - sample on heroku? aws? do? gcp?
@@ -111,13 +100,9 @@ This centers your application development around your feature requirements, skew
 
 Describe the [graphql schema](http://graphql.org/learn/schema/) centered around your front-end requirements. This is not the same as Database Design, though in many cases, the schema could be a direct representation of your table relationships.
 
-Check out `./data/schema.js` as an example.
-
 ### Define Resolvers
 
 Define the [resolvers](http://graphql.org/learn/execution/#root-fields-resolvers), to match entities from your schema
-
-Check out `./data/resolvers.js` as an example.
 
 ### Create Mocks
 
