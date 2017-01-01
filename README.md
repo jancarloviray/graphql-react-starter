@@ -78,7 +78,7 @@ npm start
 ## Roadmap and Plans
 
 - (done) sample db relationships 
-- (dont) modularize schema/resolvers
+- (done) modularize schema/resolvers
 - add subscriptions
 - nconf
 - production vs development build

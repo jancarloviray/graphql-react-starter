@@ -9,10 +9,10 @@ import TransactionType from '../schema/TransactionType'
 import User from '../schema/User'
 
 const schema = [`
-schema {
-    query: Query 
-    mutation: Mutation
-}
+    schema {
+        query: Query 
+        mutation: Mutation
+    }
 `]
 
 const typeDefs = [
