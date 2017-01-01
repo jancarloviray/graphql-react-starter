@@ -78,19 +78,10 @@ npm start
 ## Roadmap and Plans
 
 - (done) sample db relationships 
-- modularize schema/resolvers
-- data loaders and prevent N+1 problems
-- static queries 
+- (dont) modularize schema/resolvers
 - add subscriptions
-- nginx
-- nodemon / pm2
-- dockerize
-- postgres (prod) and sqlite (dev) must be compatible
 - nconf
 - production vs development build
-- "harden" node server
-- integration tests: sqlite and pg 
-- unit tests 
 - es2015+ everything
 - eslint
 - react
@@ -99,9 +90,15 @@ npm start
 - react router 
 - redux 
 - authentication
-- apply best practices!
-- universal??? perhaps overkill..
-- CI: Travis? Jenkins?
+- dockerize
+- nginx
+- postgres for production
+- data loaders and prevent N+1 problems
+- static queries 
+- "harden" node server
+- unit tests 
+- universal (perhaps overkill?)
+- [jenkins](https://jenkins.io/)
 - deployment scripts
 - sample on heroku? aws? do? gcp?
 - React Native
