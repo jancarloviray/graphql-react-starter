@@ -13,6 +13,7 @@ yarn install
 yarn migrate
 yarn seed
 
+yarn build
 yarn start
 ```
 
