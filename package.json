@@ -14,7 +14,7 @@
   ],
   "homepage": "https://github.com/jancarloviray/graphql-react-starter#graphql-react-starter",
   "scripts": {
-    "start": "nodemon ./server.js --exec babel-node",
+    "start": "babel-node ./dist/server.js",
     "build": "webpack",
     "make:migrate": "knex migrate:make $@",
     "make:seed": "knex seed:make",
