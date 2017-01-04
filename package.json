@@ -15,39 +15,54 @@
   "homepage": "https://github.com/jancarloviray/graphql-react-starter#graphql-react-starter",
   "scripts": {
     "start": "nodemon ./server.js --exec babel-node",
+    "build": "webpack",
     "make:migrate": "knex migrate:make $@",
     "make:seed": "knex seed:make",
     "migrate": "knex migrate:latest",
     "migrate:rollback": "knex migrate:rollback",
     "lint": "eslint .",
     "seed": "knex seed:run",
+    "doc:dep": "readme package.json >> README.md",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Jan Carlo Viray <www.jancarloviray.com>",
   "license": "MIT",
   "devDependencies": {
     "babel-cli": "^6.18.0",
+    "babel-loader": "^6.2.10",
     "babel-preset-env": "^1.1.4",
+    "babel-preset-react": "^6.16.0",
     "casual": "^1.5.8",
+    "css-loader": "^0.26.1",
     "eslint": "^3.12.2",
     "eslint-plugin-babel": "^4.0.0",
-    "eslint-plugin-react": "^6.8.0",
     "eslint-plugin-graphql": "^0.4.3",
+    "eslint-plugin-react": "^6.8.0",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "json-loader": "^0.5.4",
+    "node-sass": "^4.1.1",
     "nodemon": "^1.11.0",
-    "sqlite3": "^3.1.8"
+    "package-json-to-readme": "^2.0.0",
+    "sass-loader": "^4.1.1",
+    "sqlite3": "^3.1.8",
+    "webpack": "^1.14.0",
+    "webpack-node-externals": "^1.5.4"
   },
   "dependencies": {
     "body-parser": "^1.15.2",
     "cors": "^2.8.1",
     "express": "^4.14.0",
-    "graphql": "^0.8.2",
     "graphql-server-express": "^0.4.3",
     "graphql-tools": "^0.8.4",
     "knex": "^0.12.6",
     "lodash": "^4.17.3",
     "pg": "^6.1.2",
     "react": "^15.4.1",
+    "react-dom": "^15.4.1",
     "react-redux": "^5.0.1",
     "redux": "^3.6.0"
+  },
+  "peerDependencies": {
+    "graphql": "^0.8.2"
   }
 }

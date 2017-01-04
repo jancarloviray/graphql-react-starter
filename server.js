@@ -7,11 +7,37 @@ import db from './src/db/lib/db'
 
 import schema from './src/server/api/schema'
 
+import React from 'react'
+// renders React component to HTML and preserves 
+// it if we call .render from client
+import { renderToString } from 'react-dom/server'
+import App from './src/app/index'
+import template from './src/app/template'
+
+
 const GRAPHQL_PORT = 8080
 
-const graphQLServer = express().use('*', cors())
+const app = express()
 
-graphQLServer.use('/graphql', bodyParser.json(), graphqlExpress((/*req*/) => {
+app.use('*', cors())
+
+app.use('/assets', express.static('assets'))
+
+app.get('/', (req, res) => {
+    const isMobile = true
+    const initialState = { isMobile }
+    const appString = renderToString(<App isMobile={isMobile} />)
+
+    res.send(template({
+        body: appString,
+        title: 'Hello World from the server',
+        // NOTE: important to pass initial state so both the client and 
+        // the server will have synced props
+        initialState: JSON.stringify(initialState)
+    }))
+})
+
+app.use('/graphql', bodyParser.json(), graphqlExpress((/*req*/) => {
     let user // = req.session.user
     return {
         schema,
@@ -21,16 +47,16 @@ graphQLServer.use('/graphql', bodyParser.json(), graphqlExpress((/*req*/) => {
     }
 }))
 
-graphQLServer.use('/graphiql', graphiqlExpress({
+app.use('/graphiql', graphiqlExpress({
     endpointURL: '/graphql'
 }))
 
-graphQLServer.use('/schema', (req, res) => {
+app.use('/schema', (req, res) => {
     res.set('Content-Type', 'text/plain')
     res.send(printSchema(schema))
 })
 
-const server = graphQLServer.listen(GRAPHQL_PORT, () => {
+const server = app.listen(GRAPHQL_PORT, () => {
     console.log(`GraphQL Server is now running on http://localhost:${GRAPHQL_PORT}/graphql`) // eslint-disable-line
 })
 
