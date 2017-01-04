@@ -1,3 +1,4 @@
+import path from 'path'
 import express from 'express'
 import { graphqlExpress, graphiqlExpress } from 'graphql-server-express'
 import { printSchema } from 'graphql'
@@ -8,12 +9,10 @@ import db from './src/db/lib/db'
 import schema from './src/server/api/schema'
 
 import React from 'react'
-// renders React component to HTML and preserves 
-// it if we call .render from client
+// renders component to HTML & preserves it if we call .render from client
 import { renderToString } from 'react-dom/server'
-import App from './src/app/index'
+import App from './src/app/App'
 import template from './src/app/template'
-
 
 const GRAPHQL_PORT = 8080
 
@@ -21,7 +20,7 @@ const app = express()
 
 app.use('*', cors())
 
-app.use('/assets', express.static('assets'))
+app.use('/assets', express.static(path.join(__dirname, 'assets')))
 
 app.get('/', (req, res) => {
     const isMobile = true
@@ -31,8 +30,8 @@ app.get('/', (req, res) => {
     res.send(template({
         body: appString,
         title: 'Hello World from the server',
-        // NOTE: important to pass initial state so both the client and 
-        // the server will have synced props
+        // important to pass initial state so both 
+        // the client and server will have synced props
         initialState: JSON.stringify(initialState)
     }))
 })
@@ -57,7 +56,11 @@ app.use('/schema', (req, res) => {
 })
 
 const server = app.listen(GRAPHQL_PORT, () => {
-    console.log(`GraphQL Server is now running on http://localhost:${GRAPHQL_PORT}/graphql`) // eslint-disable-line
+    // eslint-disable-next-line
+    console.log(`
+    GraphQL Server is now running on 
+    http://localhost:${GRAPHQL_PORT}/graphql
+    `)
 })
 
 // temp fix for nodemon EADDRINUSE

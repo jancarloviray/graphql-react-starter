@@ -1,15 +1,16 @@
-var webpack = require('webpack')
+const path = require('path')
+const webpack = require('webpack')
 
 // extracts text from bundle into a file
-var ExtractTextPlugin = require('extract-text-webpack-plugin')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 // allows you to define external modules that should not be bundled
-var nodeExternals = require('webpack-node-externals')
+const nodeExternals = require('webpack-node-externals')
 
-var isProduction = process.env.NODE_ENV === 'production'
+const isProduction = process.env.NODE_ENV === 'production'
 
-var productionPluginDefine = isProduction ? [
-    // map values to variables that will be replaced during build
+const productionPluginDefine = isProduction ? [
+    // map values to constiables that will be replaced during build
     new webpack.DefinePlugin({
         'process.env': {
             'NODE_ENV': JSON.stringify('production')
@@ -17,7 +18,7 @@ var productionPluginDefine = isProduction ? [
     })
 ] : []
 
-var clientLoaders = isProduction ? productionPluginDefine.concat([
+const clientLoaders = isProduction ? productionPluginDefine.concat([
     // remove duplicated modules
     new webpack.optimize.DedupePlugin(),
     // optimize order of modules based on how often it is used
@@ -29,71 +30,93 @@ var clientLoaders = isProduction ? productionPluginDefine.concat([
     })
 ]) : []
 
-var commonLoaders = [
+const commonLoaders = [
     {
         test: /\.json$/,
         loader: 'json-loader'
     }
 ]
 
-module.exports = [
-    // SERVER
-    {
-        entry: './server.js',
-        output: {
-            path: './dist',
-            filename: 'server.js',
-            publicPath: '/'
-            // libraryTarget: 'commonjs2'
-        },
-        target: 'node',
-        node: {
-            console: false,
-            global: false,
-            process: false,
-            Buffer: false,
-            __filename: false,
-            __dirname: false
-        },
-        externals: nodeExternals(),
-        plugins: productionPluginDefine,
-        module: {
-            loaders: [
-                {
-                    test: /\.js$/,
-                    loader: 'babel',
-                }
-            ].concat(commonLoaders)
-        }
+const clientConfig = {
+    name: 'client',
+    entry: [
+        './src/app/browser.js'
+    ],
+    output: {
+        path: path.join(__dirname, '/dist/assets'),
+        publicPath: '/',
+        filename: 'bundle.js',
     },
-    // CLIENT
-    {
-        entry: './src/app/browser.js',
-        output: {
-            path: './dist/assets',
-            publicPath: '/',
-            filename: 'bundle.js',
-        },
-        plugins: clientLoaders.concat([
-            new ExtractTextPlugin('index.css', {
-                allChunks: true
-            })
-        ]),
-        module: {
-            loaders: [
-                {
-                    test: /\.js$/,
-                    exclude: /node_modules/,
-                    loader: 'babel'
-                },
-                {
-                    test: /\.scss$/,
-                    loader: ExtractTextPlugin.extract('css|sass')
-                }
-            ],
-            resolve: {
-                extensions: ['', '.js', '.jsx']
+    module: {
+        loaders: [
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                loader: 'babel'
+            },
+            {
+                test: /\.css$/,
+                loader: ExtractTextPlugin.extract('style', 'css')
+            },
+            {
+                test: /\.scss$/,
+                loader: ExtractTextPlugin.extract('css-loader?modules& importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]')
             }
-        }
+        ],
+    },
+    plugins: clientLoaders.concat([
+        new ExtractTextPlugin('style.css', {
+            allChunks: true
+        })
+    ]),
+    resolve: {
+        extensions: ['', '.js', '.jsx'],
+        root: __dirname
     }
-]
+}
+
+const serverConfig = {
+    name: 'server',
+    entry: [
+        './server.js'
+    ],
+    output: {
+        path: path.join(__dirname, 'dist'),
+        filename: 'server.js',
+        publicPath: '/',
+        libraryTarget: 'commonjs2'
+    },
+    target: 'node',
+    node: {
+        console: false,
+        global: false,
+        process: false,
+        Buffer: false,
+        __filename: false,
+        __dirname: false
+    },
+    externals: [nodeExternals()],
+    plugins: productionPluginDefine,
+    module: {
+        loaders: [
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                loader: 'babel',
+            },
+            {
+                test: /\.css$/,
+                loader: 'null'
+            },
+            {
+                test: /\.scss$/,
+                loader: 'css-loader/locals?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]'
+            }
+        ].concat(commonLoaders)
+    },
+    resolver: {
+        root: __dirname
+    }
+}
+
+module.exports = [serverConfig, clientConfig]
