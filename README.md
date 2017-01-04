@@ -6,7 +6,7 @@ The purpose of this starter kit is to be as real-world starter as possible while
 
 ## Installation
 
-You need [Yarn](https://yarnpkg.com/en/docs/install) as [npm](https://www.npmjs.com/) alternative. [Why?](https://github.com/yarnpkg/yarn) Offline mode, deterministic installation, network performance and resilience.
+You need [Yarn](https://yarnpkg.com/en/docs/install) as [npm](https://www.npmjs.com/) alternative. [Why?](https://github.com/yarnpkg/yarn) Offline mode, deterministic installation, network performance and resilience. Although you can still run these using `npm run [command]`
 
 ```shell
 yarn install
@@ -49,15 +49,18 @@ yarn start
 
 ## Roadmap and Plans
 
-- [ ] (done) sample db relationships 
-- [ ] (done) modularize schema/resolvers
+- [x] sample db relationships 
+- [x] modularize schema/resolvers
+- [x] universal
+- [ ] separate api server and static server
 - [ ] add subscriptions
 - [ ] production vs development build
 - [ ] es2015+ everything
-- [ ] (done) eslint
-- [ ] react
+- [x] eslint
+- [x] react
 - [ ] graphql client 
-- [ ] webpack 2 and hot loader
+- [x] webpack 
+- [ ] hot loader
 - [ ] react router 
 - [ ] redux 
 - [ ] authentication
@@ -68,10 +71,50 @@ yarn start
 - [ ] static queries 
 - [ ] "harden" node server
 - [ ] unit tests 
-- [ ] [jenkins](https://jenkins.io/)
+- [ ] jenkins
 - [ ] deployment scripts
 - [ ] sample on heroku? aws? do? gcp?
 - [ ] React Native
+
+## Universal / Isomorphic Explained
+
+We can get the server to render React components through `renderToString` from `react-dom/server`
+
+```javascript
+import React from 'react'
+import { renderToString } from 'react-dom/server'
+import App from './src/app/App'
+
+res.send(`
+    <!doctype html>
+    <html>
+        <body>
+            <!-- Server Side Render -->
+            <div id='app'>${renderToString(<App />)}</div>
+
+            <!-- Server Side Hydrating Client Data -->
+            <script>window.__APP_INITIAL_STATE__ = ${initialState}</script>
+
+            <!-- Client Side Render -->
+            <script src='bundle.js'></script>
+        </body>
+    </html>
+`);
+```
+
+However, there are no event-handlers attached yet. When **bundle.js** is loaded and React's `render` function is executed, React will already see that markup is there and will not re-render but rather just attach the event handlers.
+
+This is done through this client code: 
+
+```javascript
+render(
+    <App {...window.__APP_INITIAL_STATE__} />,
+    document.getElementById('root')
+)
+```
+
+This also gets the `__APP_INITIAL_STATE__` that the server rendered in the `window` variable.
+
 
 ## Schema-First Design Steps
 
