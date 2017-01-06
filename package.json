@@ -15,7 +15,7 @@
   "homepage": "https://github.com/jancarloviray/graphql-react-starter#graphql-react-starter",
   "scripts": {
     "start": "babel-node ./dist/server.js",
-    "build": "webpack",
+    "build": "rm -rf ./dist && webpack",
     "make:migrate": "knex migrate:make $@",
     "make:seed": "knex seed:make",
     "migrate": "knex migrate:latest",
@@ -38,7 +38,7 @@
     "eslint-plugin-babel": "^4.0.0",
     "eslint-plugin-graphql": "^0.4.3",
     "eslint-plugin-react": "^6.8.0",
-    "extract-text-webpack-plugin": "^1.0.1",
+    "extract-text-webpack-plugin": "^2.0.0-beta.4",
     "json-loader": "^0.5.4",
     "node-sass": "^4.1.1",
     "nodemon": "^1.11.0",
@@ -46,7 +46,8 @@
     "sass-loader": "^4.1.1",
     "sqlite3": "^3.1.8",
     "style-loader": "^0.13.1",
-    "webpack": "^1.14.0",
+    "webpack": "2.2.0-rc.3",
+    "webpack-dev-server": "2.2.0-rc.0",
     "webpack-node-externals": "^1.5.4"
   },
   "dependencies": {

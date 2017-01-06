@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import css from './App.scss'
+import './App.scss'
 
 export default class App extends Component {
     render() {
@@ -7,7 +7,7 @@ export default class App extends Component {
         return (
             <div>
                 <h1>Hello World</h1>
-                <span className={css.label}>
+                <span className="label">
                     {isMobile ? 'mobile' : 'desktop'}
                 </span>
             </div>

@@ -7,12 +7,12 @@ export default ({ body, title, initialState }) => {
             <head>
                 <script>window.__APP_INITIAL_STATE__ = ${initialState}</script>
                 <title>${title}</title>
-                <link rel="stylesheet" href="/assets/style.css" />
+                <link rel="stylesheet" href="/assets/app.bundle.css" />
             </head>
             <body>
                 <div id="root">${body}</div>
             </body>
-            <script src="/assets/bundle.js"></script>
+            <script src="/assets/app.bundle.js"></script>
         </html>
     `
 }
