@@ -1,6 +1,6 @@
 # GraphQL React Starter
 
-GraphQL Node.js Starter is a hot-reloading, bloat-less using [Node.js](https://nodejs.org/), [JavaScript](https://developer.mozilla.org/docs/Web/JavaScript) through [Babel](http://babeljs.io/) and using [GraphQL](http://graphql.org/) for API creations and consumption. For client-side, this uses [React](https://facebook.github.io/react/), [React-Router](https://github.com/ReactTraining/react-router) and [Redux](https://github.com/reactjs/redux). For the database portion, this uses [PostgreSQL](https://www.postgresql.org/), accessed through a great query-builder, [Knex.js](http://knexjs.org/)
+GraphQL Node.js Starter is a hot-reloading boilerplate using [Node.js](https://nodejs.org/), [JavaScript](https://developer.mozilla.org/docs/Web/JavaScript) through [Babel](http://babeljs.io/) and using [GraphQL](http://graphql.org/) for API creations and consumption. For client-side, this uses [React](https://facebook.github.io/react/), [React-Router](https://github.com/ReactTraining/react-router) and [Redux](https://github.com/reactjs/redux). For the database portion, this uses [PostgreSQL](https://www.postgresql.org/) and a query-builder [Knex.js](http://knexjs.org/)
 
 The purpose of this starter kit is to be as close to being a real-world starter while keeping it simple and flexible.
 
@@ -20,29 +20,28 @@ yarn start
 
 ## Roadmap and Status
 
-- [x] sample db w/ relationships (1-1/1-M/M-M)
-- [x] GraphQL integration with Express
-- [x] modularize schema and resolvers
 - [x] Universal Javascript
-- [x] eslint
-- [x] React
-- [x] Webpack 2
 - [x] Hot Reloading
-- [x] React Router 
+- [x] React
 - [x] Redux 
-- [x] client example
+- [x] Webpack 2
+- [x] React Router 
+- [x] ESLint
+- [x] GraphQL integration with Express
+- [x] Modularize Schema and Resolvers
+- [x] DB w/ relationships (1-1/1-M/M-M)
+- [ ] Separate API Server and Client server
+- [ ] Production vs Development build
 - [ ] es2015+ everything
-- [ ] production vs development build
-- [ ] GraphQL client 
-- [ ] separate api server and client server
-- [ ] add subscriptions
-- [ ] authentication
+- [ ] GraphQL client: Apollo vs Relay
+- [ ] Add Subscriptions
+- [ ] Authentication Example
 - [ ] Nginx
-- [ ] dockerize
-- [ ] Postgres for production
-- [ ] data loaders and prevent N+1 problems
-- [ ] static queries 
-- [ ] deployment scripts
+- [ ] Dockerize
+- [ ] PostgreSQL
+- [ ] Data Loaders and prevent N+1 problems
+- [ ] Static Queries 
+- [ ] Deployment Scripts
 
 ## Universal / Isomorphic Explained
 
