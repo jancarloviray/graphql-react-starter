@@ -7,7 +7,7 @@ import db from './src/db/lib/db'
 
 import schema from './src/server/api/schema'
 
-const GRAPHQL_PORT = 8080
+const GRAPHQL_PORT = process.env.API_PORT
 
 const app = express()
 

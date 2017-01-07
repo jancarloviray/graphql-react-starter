@@ -38,19 +38,22 @@
         "start": {
             "command": "babel-node ./src/client/server.js",
             "env": {
-                "NODE_ENV": "development"
+                "NODE_ENV": "development",
+                "PORT": 3000
             }
         },
         "start:prod": {
             "command": "webpack --config ./src/client/webpack.config.js && babel-node ./src/client/server.js",
             "env": {
-                "NODE_ENV": "production"
+                "NODE_ENV": "production",
+                "PORT": 3001
             }
         },
         "api": {
             "command": "",
             "env": {
-                "NODE_ENV": "production"
+                "NODE_ENV": "production",
+                "API_PORT": 8000
             }
         },
         "migrate:make": {

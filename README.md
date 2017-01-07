@@ -1,8 +1,8 @@
 # GraphQL React Starter
 
-GraphQL Node.js Starter is a bloat-less, ORM-free boilerplate using [Node.js](https://nodejs.org/), [JavaScript](https://developer.mozilla.org/docs/Web/JavaScript) through [Babel](http://babeljs.io/) and using [GraphQL](http://graphql.org/) for API creations and consumption. For client-side, this uses [React](https://facebook.github.io/react/), [React-Router](https://github.com/ReactTraining/react-router) and [Redux](https://github.com/reactjs/redux). For the database portion, this uses [PostgreSQL](https://www.postgresql.org/) and [SQLite](http://sqlite.org/), accessed through a great query-builder, [Knex.js](http://knexjs.org/)
+GraphQL Node.js Starter is a hot-reloading, bloat-less using [Node.js](https://nodejs.org/), [JavaScript](https://developer.mozilla.org/docs/Web/JavaScript) through [Babel](http://babeljs.io/) and using [GraphQL](http://graphql.org/) for API creations and consumption. For client-side, this uses [React](https://facebook.github.io/react/), [React-Router](https://github.com/ReactTraining/react-router) and [Redux](https://github.com/reactjs/redux). For the database portion, this uses [PostgreSQL](https://www.postgresql.org/), accessed through a great query-builder, [Knex.js](http://knexjs.org/)
 
-The purpose of this starter kit is to be as real-world starter as possible while being simple and bloat-free. 
+The purpose of this starter kit is to be as close to being a real-world starter while keeping it simple and flexible.
 
 **Current Status: still in development, but follow along and contribute if you'd like.**
 
@@ -21,24 +21,25 @@ yarn start
 ## Roadmap and Status
 
 - [x] sample db w/ relationships (1-1/1-M/M-M)
+- [x] GraphQL integration with Express
 - [x] modularize schema and resolvers
-- [x] universal javascript
+- [x] Universal Javascript
 - [x] eslint
-- [x] react
-- [x] webpack 2
-- [x] hot reloading
-- [x] react router 
-- [x] redux 
+- [x] React
+- [x] Webpack 2
+- [x] Hot Reloading
+- [x] React Router 
+- [x] Redux 
 - [x] client example
 - [ ] es2015+ everything
 - [ ] production vs development build
-- [ ] graphql client 
+- [ ] GraphQL client 
 - [ ] separate api server and client server
 - [ ] add subscriptions
 - [ ] authentication
-- [ ] nginx
+- [ ] Nginx
 - [ ] dockerize
-- [ ] postgres for production
+- [ ] Postgres for production
 - [ ] data loaders and prevent N+1 problems
 - [ ] static queries 
 - [ ] deployment scripts
