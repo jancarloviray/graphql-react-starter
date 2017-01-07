@@ -9,19 +9,26 @@ const config = {
     // The base directory, an absolute path, for resolving entry points and loaders from configuration. 
     // `entry` and `module.rules.loader` options are resolved relative to this directory
     context: path.resolve(__dirname, './'),
+
     // enhance debugging by adding meta info for the browser devtools: 'source-map' | 'eval'
     devtool: 'eval',
+
     // options for resolving module requests (does not apply to resolving to loaders)
     resolve: resolve(),
+
     // The point or points to enter the application. At this point, the application starts executing. 
     // If an array is passed, all items will be executed. Simple rule: one entry point per HTML page.
     // SPA: one entry point. MPA: multiple entry points https://webpack.js.org/configuration/entry-context
     entry: entry(),
+
     // Options related to how webpack emits results
     output: output(),
+
     plugins: plugins(),
+
     // The configuration regarding modules
     module: modules(),
+
     // the environment in which the bundle should run
     // changes chunk loading behavior and available modules:  web | node | webworker etc...
     target: 'web'
@@ -31,8 +38,10 @@ function output() {
     return {
         // the target directory for all output files must be an absolute path
         path: path.join(__dirname, '/dist', '/assets'),
+
         // the filename template for entry chunks: "bundle.js" "[name].js" "[chunkhash].js"
         filename: 'bundle.js',
+
         // the url to the output directory resolved relative to the HTML page
         publicPath: '/assets/'
     }
@@ -42,8 +51,10 @@ function plugins() {
     const common = [
         // remove duplicated modules
         new webpack.optimize.DedupePlugin(),
+
         // optimize order of modules based on how often it is used
         new webpack.optimize.OccurrenceOrderPlugin(),
+
         // uglify and minify javascript files
         new webpack.optimize.UglifyJsPlugin({
             compress: { warnings: false },
@@ -68,7 +79,11 @@ function plugins() {
     ]
     return __PROD__ ? common
         : common.concat([
+            // enable HMR globally
             new webpack.HotModuleReplacementPlugin(),
+
+            // prints more readable module names in the browser console on HMR updates
+            new webpack.NamedModulesPlugin(),
             new webpack.NoErrorsPlugin()
         ])
 }

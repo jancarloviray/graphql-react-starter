@@ -95,8 +95,6 @@ app.get('*', (req, res) => {
 
 })
 
-
-
 app.listen(serverPort, (err) => {
     if (err) console.error(err)
     console.log(`${process.env.NODE_ENV} running at http://localhost:${serverPort}`)
