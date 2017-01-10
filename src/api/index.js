@@ -3,7 +3,7 @@ import { graphqlExpress, graphiqlExpress } from 'graphql-server-express'
 import { printSchema } from 'graphql'
 import bodyParser from 'body-parser'
 import cors from 'cors'
-import db from './src/db/lib/db'
+import db from './src/data/lib/db'
 
 import schema from './src/server/api/schema'
 
@@ -34,10 +34,7 @@ app.use('/schema', (req, res) => {
 
 const server = app.listen(GRAPHQL_PORT, () => {
     // eslint-disable-next-line
-    console.log(`
-    GraphQL Server is now running on 
-    http://localhost:${GRAPHQL_PORT}/graphql
-    `)
+    console.log(`GraphQL Server is now running on http://localhost:${GRAPHQL_PORT}/graphql`)
 })
 
 // temp fix for nodemon EADDRINUSE

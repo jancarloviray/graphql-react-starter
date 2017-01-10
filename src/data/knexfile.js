@@ -3,13 +3,13 @@ module.exports = {
         client: 'sqlite3',
         debug: true,
         connection: {
-            filename: './dev-db.sqlite3',
+            filename: './dev.sqlite3',
         },
         seeds: {
-            directory: './src/db/seeds'
+            directory: './seeds'
         },
         migrations: {
-            directory: './src/db/migrations',
+            directory: './migrations',
             tableName: 'knex_migrations'
         },
         useNullAsDefault: true,
@@ -31,7 +31,7 @@ module.exports = {
             password: 'pass'
         },
         migrations: {
-            directory: './src/db/migrations',
+            directory: './migrations',
             tableName: 'knex_migrations'
         },
     }

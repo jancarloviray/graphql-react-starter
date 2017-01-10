@@ -39,4 +39,5 @@ jspm_packages
 # temp
 *.sqlite3
 *.temp
+*.todo
 dist

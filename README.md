@@ -20,7 +20,6 @@ yarn start
 
 ## Roadmap and Status
 
-- [x] Universal Javascript
 - [x] Hot Reloading
 - [x] React
 - [x] Redux 
@@ -30,8 +29,8 @@ yarn start
 - [x] GraphQL integration with Express
 - [x] Modularize Schema and Resolvers
 - [x] DB w/ relationships (1-1/1-M/M-M)
-- [ ] Separate API Server and Client server
-- [ ] Production vs Development build
+- [x] Separate API Server and Client server
+- [x] Production vs Development build
 - [ ] es2015+ everything
 - [ ] GraphQL client: Apollo vs Relay
 - [ ] Add Subscriptions
@@ -42,45 +41,6 @@ yarn start
 - [ ] Data Loaders and prevent N+1 problems
 - [ ] Static Queries 
 - [ ] Deployment Scripts
-
-## Universal / Isomorphic Explained
-
-We can get the server to render React components through `renderToString` from `react-dom/server`
-
-```javascript
-import React from 'react'
-import { renderToString } from 'react-dom/server'
-import App from './src/app/App'
-
-res.send(`
-    <!doctype html>
-    <html>
-        <body>
-            <!-- Server Side Render -->
-            <div id='app'>${renderToString(<App />)}</div>
-
-            <!-- Server Side Hydrating Client Data -->
-            <script>window.__APP_INITIAL_STATE__ = ${initialState}</script>
-
-            <!-- Client Side Render -->
-            <script src='bundle.js'></script>
-        </body>
-    </html>
-`);
-```
-
-However, there are no event-handlers attached yet. When **bundle.js** is loaded and React's `render` function is executed, React will already see that markup is there and will not re-render but rather just attach the event handlers.
-
-This is done through this client code: 
-
-```javascript
-render(
-    <App {...window.__APP_INITIAL_STATE__} />,
-    document.getElementById('root')
-)
-```
-
-This also gets the `__APP_INITIAL_STATE__` that the server rendered in the `window` variable.
 
 ## Schema-First Design Steps
 
@@ -101,14 +61,6 @@ Mocking APIs are typically time consuming and often becomes a waste as API chang
 ### Create or Update Database
 
 Being that GraphQL is an abstraction that is somewhat geared towards UI requirements, there is no need to map a one-to-one schema between GraphQL schema and Database Schema. Through the resolver, we can morph and transform and even fetch extra data without being constricted with the database schema. This allows for faster iteration and prototyping.# graphql-react-starter 
-
-## Inspirations
-
-[https://github.com/jpsierens/webpack-react-redux](https://github.com/jpsierens/webpack-react-redux)
-[https://github.com/justinjung04/universal-boilerplate](https://github.com/justinjung04/universal-boilerplate)
-[https://github.com/jackfranklin/universal-react-example](https://github.com/jackfranklin/universal-react-example)
-[https://github.com/ParabolInc/action](https://github.com/ParabolInc/action)
-[https://github.com/davezuko/react-redux-starter-kit](https://github.com/davezuko/react-redux-starter-kit)
 
 ## Dependencies
 
@@ -133,28 +85,34 @@ Being that GraphQL is an abstraction that is somewhat geared towards UI requirem
 - [babel-loader](https://github.com/babel/babel-loader): babel module loader for webpack
 - [babel-preset-env](): A Babel preset for each environment.
 - [babel-preset-react](): Babel preset for all React plugins.
+- [better-npm-run](https://github.com/benoror/better-npm-run): Better NPM scripts runner
 - [casual](): Fake data generator
+- [compression](): Node.js compression middleware
 - [css-loader](https://github.com/webpack/css-loader): css loader module for webpack
+- [debug](https://github.com/visionmedia/debug): small debugging utility
 - [eslint](): An AST-based pattern checker for JavaScript.
 - [eslint-plugin-babel](https://github.com/babel/eslint-plugin-babel): an eslint rule plugin companion to babel-eslint
 - [eslint-plugin-graphql](https://github.com/apollostack/eslint-plugin-graphql): GraphQL ESLint plugin.
 - [eslint-plugin-react](https://github.com/yannickcr/eslint-plugin-react): React specific linting rules for ESLint
 - [extract-text-webpack-plugin](https://github.com/webpack/extract-text-webpack-plugin): Extract text from bundle into a file.
+- [file-loader](https://github.com/webpack/file-loader): file loader module for webpack
+- [html-webpack-plugin](https://github.com/ampedandwired/html-webpack-plugin): Simplifies creation of HTML files to serve your webpack bundles
+- [ip](https://github.com/indutny/node-ip): 
 - [json-loader](https://github.com/webpack/json-loader): json loader module for webpack
 - [node-sass](https://github.com/sass/node-sass): Wrapper around libsass
 - [nodemon](https://github.com/remy/nodemon): Simple monitor script for use during development of a node.js app.
 - [package-json-to-readme](): Generate a README.md from package.json contents
 - [react-hot-loader](https://github.com/gaearon/react-hot-loader): Tweak React components in real time.
+- [redux-logger](https://github.com/theaqua/redux-logger): Logger for Redux
 - [sass-loader](https://github.com/jtangelder/sass-loader): Sass loader for webpack
 - [sqlite3](https://github.com/mapbox/node-sqlite3): Asynchronous, non-blocking SQLite3 bindings
 - [style-loader](https://github.com/webpack/style-loader): style loader module for webpack
+- [url-loader](https://github.com/webpack/url-loader): url loader module for webpack
 - [webpack](https://github.com/webpack/webpack): Packs CommonJs/AMD modules for the browser. Allows to split your codebase into multiple bundles, which can be loaded on demand. Support loaders to preprocess files, i.e. json, jsx, es7, css, less, ... and your custom stuff.
 - [webpack-dev-middleware](https://github.com/webpack/webpack-dev-middleware): Offers a dev middleware for webpack, which arguments a live bundle to a directory
 - [webpack-dev-server](https://github.com/webpack/webpack-dev-server): Serves a webpack app. Updates the browser on changes.
 - [webpack-hot-middleware](https://github.com/glenjamin/webpack-hot-middleware): Webpack hot reloading you can attach to your own server
 - [webpack-node-externals](https://github.com/liady/webpack-node-externals): Easily exclude node_modules in Webpack bundle
-- [redux-logger](https://github.com/theaqua/redux-logger): Logger for Redux
-- [better-npm-run](https://github.com/benoror/better-npm-run): Better NPM scripts runner
 
 ## License
 
