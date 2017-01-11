@@ -1,3 +1,12 @@
+// Routing References:
+// Overview: https://github.com/ReactTraining/react-router/tree/master/docs/guides
+// Route Configuration: https://github.com/ReactTraining/react-router/blob/master/docs/guides/RouteConfiguration.md
+// Route Matching: https://github.com/ReactTraining/react-router/blob/master/docs/guides/RouteMatching.md
+// Histories: https://github.com/ReactTraining/react-router/blob/master/docs/guides/Histories.md
+// Index Routes: https://github.com/ReactTraining/react-router/blob/master/docs/guides/IndexRoutes.md
+// Dynamic Routing: https://github.com/ReactTraining/react-router/blob/master/docs/guides/DynamicRouting.md
+// Confirming Navigation: https://github.com/ReactTraining/react-router/blob/master/docs/guides/ConfirmingNavigation.md
+
 // We only need to import the modules necessary for initial render
 import CoreLayout from '../layouts/CoreLayout'
 import Home from './Home'
