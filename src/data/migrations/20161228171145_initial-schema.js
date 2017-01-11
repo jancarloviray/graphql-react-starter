@@ -60,6 +60,7 @@ exports.up = function (knex) {
                 .references('Accounts.accountId')
             table.integer('userId')
                 .references('Users.userId')
+            table.primary(['accountId', 'userId'])
         })
 
         .createTable('TransactionTypes', (table) => {

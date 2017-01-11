@@ -1,6 +1,8 @@
 const casual = require('casual')
 const _ = require('lodash')
 
+casual.seed(123)
+
 const numUsersSeed = 10
 const users = _.concat(
     { refId: null, name: casual.name },
