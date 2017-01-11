@@ -38,8 +38,7 @@ yarn start
 - [x] GraphQL client integration: Apollo
 - [x] GraphQL + Redux
 - [x] GraphQL query example
-- [ ] GraphQL mutation example
-- [ ] es2015+ everything
+- [x] GraphQL mutation example
 - [ ] Add Subscriptions (trigger query after mutate)
 - [ ] Authentication
 - [ ] Nginx Conf
