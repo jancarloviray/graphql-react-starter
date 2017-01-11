@@ -29,6 +29,12 @@ query {
 }
 `
 
+const createUser = gql`
+mutation createUser($name: String!){
+  createUser(name: $name)
+},
+`
+
 const mapDispatchToProps = {
     increment: () => increment(1),
     doubleAsync
@@ -47,6 +53,14 @@ const mapDispatchToProps = {
     https://github.com/reactjs/reselect    */
 
 export default compose(
-    graphql(USERS_QUERY),
+    graphql(USERS_QUERY, {
+        // too aggressive, but just for demonstration
+        options: { pollInterval: 5000 }
+    }),
+    graphql(createUser, {
+        props: ({ mutate }) => ({
+            createUser: (name) => mutate({ variables: { name } })
+        })
+    }),
     connect(null, mapDispatchToProps)
 )(Users)

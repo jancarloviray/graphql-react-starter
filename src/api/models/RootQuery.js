@@ -32,12 +32,12 @@ export const resolvers = {
         async users(root, { userId }) {
             return userId ?
                 db.select('*').from('Users').where({ userId }) :
-                db.select('*').from('Users').limit(5)
+                db.select('*').from('Users')
         },
         async accounts(_, { accountId }) {
             return accountId ?
                 db.select('*').from('Accounts').where({ accountId }) :
-                db.select('*').from('Accounts').limit(5)
+                db.select('*').from('Accounts')
         },
         async transactions(_, args) {
             return db.select('*').from('Transactions').where(args)
