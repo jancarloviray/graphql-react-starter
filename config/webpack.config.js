@@ -43,7 +43,7 @@ const config = {
     output: output(),
 
     // enhance debugging by adding meta info for the browser devtools: 'source-map' | 'eval'
-    devtool: 'eval',
+    devtool: devtool(),
 
     // options for resolving module requests (does not apply to resolving to loaders)
     resolve: resolve(),
@@ -80,6 +80,10 @@ function output() {
         // the url to the output directory resolved relative to the HTML page
         publicPath: __PROD__ ? '/' : `http://${appConfig.devServer.host}:${appConfig.devServer.port}/`
     }
+}
+
+function devtool() {
+    return __PROD__ ? 'source-map' : 'eval-source-map'
 }
 
 function plugins() {
