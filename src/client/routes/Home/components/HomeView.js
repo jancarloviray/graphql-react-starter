@@ -1,20 +1,23 @@
 import React from 'react'
-import ReduxLogoImage from '../assets/redux-logo.png'
-import GraphQLLogoImage from '../assets/graphql-logo.svg'
-import './HomeView.scss'
+import ReduxLogo from '../assets/redux-logo.png'
+import ReactLogo from '../assets/react-logo.png'
+import GraphQLLogo from '../assets/graphql-logo.svg'
+import css from './HomeView.scss'
 
 export const HomeView = () => (
-    <div>
+    <div className={css.container}>
         <img
             alt='GraphQL Logo'
-            className='logo'
-            style={{ width: 200, height: 100 }}
-            src={GraphQLLogoImage} />
+            className={css.logo}
+            src={ReactLogo} />
+        <img
+            alt='GraphQL Logo'
+            className={css.logo}
+            src={GraphQLLogo} />
         <img
             alt='Redux Logo'
-            className='logo'
-            style={{ width: 200 }}
-            src={ReduxLogoImage} />
+            className={css.logo}
+            src={ReduxLogo} />
     </div>
 )
 

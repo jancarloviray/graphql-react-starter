@@ -2,10 +2,32 @@
 
 const path = require('path')
 const webpack = require('webpack')
+const cssnano = require('cssnano')
+const log = require('debug')('app:config:webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
+
 const appConfig = require('./app.config')
+const pkg = require('../package.json')
 
 const __PROD__ = process.env.NODE_ENV === 'production'
+const __DEV__ = process.env.NODE_ENV === 'development'
+
+const vendor = [
+    'apollo-client',
+    'react',
+    'react-apollo',
+    'react-dom',
+    'react-redux',
+    'react-router',
+    'redux',
+    'redux-thunk'
+]
+
+vendor.forEach((name) => {
+    if (pkg.dependencies[name]) return true
+    log(`Vendor "${name}" was not found in package.json. It will not be included in the bundle`)
+})
 
 const config = {
     // The base directory, an absolute path, for resolving entry points and loaders from configuration. 
@@ -17,14 +39,14 @@ const config = {
     // SPA: one entry point. MPA: multiple entry points https://webpack.js.org/configuration/entry-context
     entry: entry(),
 
+    // Options related to how webpack emits results
+    output: output(),
+
     // enhance debugging by adding meta info for the browser devtools: 'source-map' | 'eval'
     devtool: 'eval',
 
     // options for resolving module requests (does not apply to resolving to loaders)
     resolve: resolve(),
-
-    // Options related to how webpack emits results
-    output: output(),
 
     plugins: plugins(),
 
@@ -38,6 +60,14 @@ const config = {
     name: 'client'
 }
 
+function entry() {
+    let entry = { app: null, vendor }
+    let app = [path.resolve(appConfig.paths.client, './index')]
+    if (!__PROD__) app.unshift('webpack-hot-middleware/client?reload=true')
+    entry.app = app
+    return entry
+}
+
 function output() {
     return {
         // the target directory for all output files must be an absolute path
@@ -45,7 +75,7 @@ function output() {
         path: appConfig.paths.dist,
 
         // the filename template for entry chunks: "bundle.js" "[name].js" "[chunkhash].js"
-        filename: 'bundle.js',
+        filename: '[name].[hash].js',
 
         // the url to the output directory resolved relative to the HTML page
         publicPath: __PROD__ ? '/' : `http://${appConfig.devServer.host}:${appConfig.devServer.port}/`
@@ -53,17 +83,35 @@ function output() {
 }
 
 function plugins() {
+    log('Enable common plugins: Define, LoaderOptions, HtmlWebpack, CommonsChunk')
     const common = [
         // map variables
         new webpack.DefinePlugin(appConfig.globals),
 
-        // optimize order of modules based on how often it is used
-        new webpack.optimize.OccurrenceOrderPlugin(),
-
-        // uglify and minify javascript files
-        new webpack.optimize.UglifyJsPlugin({
-            compress: { warnings: false },
-            sourceMap: false
+        new webpack.LoaderOptionsPlugin({
+            options: {
+                context: __dirname,
+                postcss: [
+                    cssnano({
+                        autoprefixer: {
+                            add: true,
+                            remove: true,
+                            browsers: ['last 2 versions']
+                        },
+                        discardComments: {
+                            removeAll: true
+                        },
+                        discardUnused: false,
+                        mergeIdents: false,
+                        reduceIdents: false,
+                        safe: true,
+                        sourcemap: true
+                    })
+                ],
+                sassLoader: {
+                    includePaths: path.resolve(appConfig.paths.client, './styles')
+                }
+            }
         }),
 
         // parse html
@@ -74,11 +122,21 @@ function plugins() {
             filename: 'index.html',
             inject: 'body',
             minify: { collapseWhitespace: true }
+        }),
+
+        // split bundles
+        new webpack.optimize.CommonsChunkPlugin({
+            names: ['vendor']
         })
     ]
 
     if (__PROD__) {
+        log('Enable plugins for production: OccurrenceOrder, UglifyJs')
         return common.concat([
+            // optimize order of modules based on how often it is used
+            new webpack.optimize.OccurrenceOrderPlugin(),
+
+            // uglify and minify javascript files
             new webpack.optimize.UglifyJsPlugin({
                 compress: {
                     unused: true,
@@ -88,6 +146,7 @@ function plugins() {
             })
         ])
     } else {
+        log('Enable plugins for development: HotModuleReplacement, NamedModules, NoErrors')
         return common.concat([
             // enable HMR globally
             new webpack.HotModuleReplacementPlugin(),
@@ -96,16 +155,6 @@ function plugins() {
             new webpack.NoErrorsPlugin()
         ])
     }
-}
-
-function entry() {
-    let common = [
-        path.resolve(appConfig.paths.client, './index')
-    ]
-    if (!__PROD__) {
-        common.unshift('webpack-hot-middleware/client?reload=true')
-    }
-    return common
 }
 
 function resolve() {
@@ -119,7 +168,8 @@ function resolve() {
 }
 
 function modules() {
-    const cssLoader = 'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]'
+    // cssnano minimizes already so disable minimize in cssLoader
+    const cssLoader = 'css-loader?modules&sourceMap&-minimizeimportLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]'
 
     return {
         rules: [
@@ -145,19 +195,19 @@ function modules() {
             },
             {
                 test: /\.css$/,
-                use: [
-                    { loader: 'style-loader' },
-                    { loader: cssLoader },
-                    // { loader: 'postcss-loader' },
+                loaders: [
+                    'style-loader',
+                    cssLoader,
+                    'postcss-loader',
                 ]
             },
             {
-                test: /\.(scss|sass)$/,
-                use: [
-                    { loader: 'style-loader' },
-                    { loader: cssLoader },
-                    // { loader: 'postcss-loader' },
-                    { loader: 'sass-loader' },
+                test: /\.scss$/,
+                loaders: [
+                    'style-loader',
+                    cssLoader,
+                    'postcss-loader',
+                    'sass-loader?sourceMap'
                 ]
             },
             {
@@ -190,6 +240,30 @@ function modules() {
             }
         ],
     }
+}
+
+if (!__DEV__) {
+    log('Adding ExtractTextPlugin to CSS loaders.')
+
+    // extract all text from css
+    config.module.rules.filter((rules) => {
+        return rules.loaders && rules.loaders.find((name) => {
+            return /css/.test(name.split('?')[0])
+        })
+    }).forEach((loader) => {
+        const first = loader.loaders[0]
+        const rest = loader.loaders.slice(1)
+        loader.loader = ExtractTextPlugin.extract({
+            fallbackLoader: first,
+            loader: rest.join('!')
+        })
+        delete loader.loaders
+    })
+
+    // place all extracted text into a file
+    config.plugins.push(
+        new ExtractTextPlugin({ filename: '[name].[contenthash].css', allChunks: true })
+    )
 }
 
 module.exports = config
