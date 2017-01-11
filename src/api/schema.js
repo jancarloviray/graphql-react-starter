@@ -1,12 +1,12 @@
 import { makeExecutableSchema } from 'graphql-tools'
 import { merge } from 'lodash'
 
-import * as Account from '../schema/Account'
-import * as RootMutation from '../schema/RootMutation'
-import * as RootQuery from '../schema/RootQuery'
-import * as Transaction from '../schema/Transaction'
-import * as TransactionType from '../schema/TransactionType'
-import * as User from '../schema/User'
+import * as Account from './models/Account'
+import * as RootMutation from './models/RootMutation'
+import * as RootQuery from './models/RootQuery'
+import * as Transaction from './models/Transaction'
+import * as TransactionType from './models/TransactionType'
+import * as User from './models/User'
 
 const schema = [`
     schema {

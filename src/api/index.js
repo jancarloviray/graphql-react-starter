@@ -3,10 +3,11 @@ import { graphqlExpress, graphiqlExpress } from 'graphql-server-express'
 import { printSchema } from 'graphql'
 import bodyParser from 'body-parser'
 import cors from 'cors'
-import db from '../data/lib/db'
 import PrettyError from 'pretty-error'
 import debug from 'debug'
-import schema from './api/schema'
+
+import db from '../data/lib/db'
+import schema from './schema'
 
 const pe = new PrettyError()
 pe.start()
