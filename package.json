@@ -18,7 +18,9 @@
     "scripts": {
         "build": "bnr build",
         "build:dev": "bnr build:dev",
+        "build:prod": "bnr build",
         "start": "bnr start",
+        "start:dev": "bnr start",
         "start:prod": "bnr start:prod",
         "api": "bnr api",
         "db:migrate": "bnr db:migrate",
