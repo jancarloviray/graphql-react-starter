@@ -1,30 +1,46 @@
-
 import React from 'react'
-import { render } from 'react-dom'
-import { Provider } from 'react-redux'
+import ReactDOM from 'react-dom'
+import configureStore from './store/configureStore'
+import AppContainer from './containers/AppContainer'
+import { apolloClient } from './lib/apolloClient'
 
-import { browserHistory } from 'react-router'
-import { syncHistoryWithStore } from 'react-router-redux'
+// instantiate store
+const initialState = window.__INITIAL_STATE__
+const store = configureStore(initialState)
 
-import store from './universal/store'
-import createRoutes from './universal/createRoutes'
+// render setup
+const MOUNT_NODE = document.getElementById('root')
 
-const history = syncHistoryWithStore(browserHistory, store)
-const routes = createRoutes(history)
-
-const rootInstance = render(
-    <Provider store={store}>
-        {routes}
-    </Provider>,
-    document.getElementById('root')
-)
-
-// https://github.com/webpack/docs/wiki/hot-module-replacement
-// https://github.com/gaearon/react-hot-loader/blob/master/docs/README.md
-if (process.env.NODE_ENV === 'development' && module.hot) {
-    require('react-hot-loader/Injection').RootInstanceProvider.injectProvider({
-        getRootInstances() {
-            return [rootInstance]
-        },
-    })
+let render = () => {
+    const routes = require('./routes/index').default(store)
+    ReactDOM.render(
+        <AppContainer store={store} routes={routes} client={apolloClient} />,
+        MOUNT_NODE
+    )
 }
+
+if (__DEV__) {
+    if (module.hot) {
+        const renderApp = render
+        const renderError = (error) => {
+            const RedBox = require('redbox-react').default
+            ReactDOM.render(<RedBox error={error} />, MOUNT_NODE)
+        }
+
+        render = () => {
+            try {
+                renderApp()
+            } catch (error) {
+                console.error(error)
+                renderError(error)
+            }
+        }
+
+        module.hot.accept('./routes/index', () => setImmediate(() => {
+            ReactDOM.unmountComponentAtNode(MOUNT_NODE)
+            render()
+        }))
+    }
+}
+
+render()

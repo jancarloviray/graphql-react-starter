@@ -1,10 +1,12 @@
 const express = require('express')
-const debug = require('debug')('app:client')
+const debug = require('debug')
 const path = require('path')
 const webpack = require('webpack')
-const config = require('../../config')
 const compression = require('compression')
 
+const config = require('../../config')
+
+const log = debug('app:client')
 const app = express()
 
 // gzip 
@@ -13,7 +15,7 @@ app.use(compression())
 if (config.app.env === 'development') {
     const compiler = webpack(config.webpack)
 
-    debug(`Enabling webpack-dev-middleware. publicPath at ${config.webpack.output.publicPath}`)
+    log(`Enabling webpack-dev-middleware. publicPath at ${config.webpack.output.publicPath}`)
     app.use(require('webpack-dev-middleware')(compiler, {
         publicPath: config.webpack.output.publicPath,
         hot: true,
@@ -22,10 +24,10 @@ if (config.app.env === 'development') {
         stats: { colors: true, chunks: false, chunkModules: false }
     }))
 
-    debug('Enabling webpack-hot-middleware')
+    log('Enabling webpack-hot-middleware')
     app.use(require('webpack-hot-middleware')(compiler))
 
-    debug(`Adding express static middleware with dist at ${config.app.paths.dist}`)
+    log(`Adding express static middleware with dist at ${config.app.paths.dist}`)
     app.use(express.static(config.app.paths.dist))
 
     // Catch all routes and sends to /index.html file
@@ -42,9 +44,9 @@ if (config.app.env === 'development') {
 } else {
     // Here, we can also do Universal Rendering. Check this post for more information:
     // https://github.com/ReactTraining/react-router/blob/master/docs/guides/ServerRendering.md
-    debug('WARNING: The server is being run outside development mode. This is not recommended in production. Precompile the project first, and serve the static files using something like Nginx.')
+    log('WARNING: The server is being run outside development mode. This is not recommended in production. Precompile the project first, and serve the static files using something like Nginx.')
     app.use(express.static(config.app.paths.dist))
 }
 
 app.listen(config.app.devServer.port)
-debug(`Server started at http://localhost:${config.app.devServer.port}`)
+log(`Server started at http://localhost:${config.app.devServer.port}`)

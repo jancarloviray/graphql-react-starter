@@ -4,6 +4,10 @@
         "es6": true,
         "node": true
     },
+    "globals": {
+        "__DEV__": true,
+        "__PROD__": true
+    },
     "extends": [
         "eslint:recommended",
         "plugin:react/recommended"
@@ -12,6 +16,7 @@
         "ecmaVersion": 2017,
         "ecmaFeatures": {
             "experimentalObjectRestSpread": true,
+            "classes": true,
             "jsx": true
         },
         "sourceType": "module"

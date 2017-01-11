@@ -1,9 +1,11 @@
-module.exports = {
+const path = require('path')
+
+const config = {
     development: {
         client: 'sqlite3',
-        debug: true,
+        debug: process.env.NODE_ENV === 'development',
         connection: {
-            filename: './dev.sqlite3',
+            filename: path.resolve(__dirname, './dev.sqlite3'),
         },
         seeds: {
             directory: './seeds'
@@ -16,7 +18,7 @@ module.exports = {
         pool: {
             min: 1,
             max: 10,
-            afterCreate: function(conn, cb){
+            afterCreate: function (conn, cb) {
                 conn.run('PRAGMA foreign_keys=ON', cb)
             }
         }
@@ -36,3 +38,5 @@ module.exports = {
         },
     }
 }
+
+module.exports = config

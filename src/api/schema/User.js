@@ -1,4 +1,4 @@
-import db from '../../db/lib/db'
+import db from '../../data/lib/db'
 
 export const schema = [`
     type User {

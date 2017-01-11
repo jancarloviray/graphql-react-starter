@@ -20,11 +20,13 @@
         "start": "bnr start",
         "start:prod": "bnr start:prod",
         "api": "bnr api",
-        "migrate": "bnr migrate",
-        "migrate:make": "bnr migrate:make",
-        "migrate:rollback": "bnr migrate:rollback",
-        "seed": "bnr seed",
-        "seed:make": "bnr seed:make",
+        "db:migrate": "bnr db:migrate",
+        "db:migrate:make": "bnr db:migrate:make",
+        "db:migrate:rollback": "bnr db:migrate:rollback",
+        "db:seed": "bnr db:seed",
+        "db:seed:make": "bnr db:seed:make",
+        "db:reset": "bnr db:reset",
+        "db:clean": "[[ ! -f \"./src/data/dev.sqlite3\" ]] || rm ./src/data/dev.sqlite3",
         "lint": "eslint .",
         "doc": "readme package.json >> README.md"
     },
@@ -55,41 +57,48 @@
         "api": {
             "command": "babel-node ./src/api/index.js",
             "env": {
-                "NODE_ENV": "production",
-                "API_PORT": 8000,
+                "NODE_ENV": "development",
+                "API_PORT": 8080,
                 "DEBUG": "app:*"
             }
         },
-        "migrate": {
+        "db:migrate": {
             "command": "knex --knexfile ./src/data/knexfile.js migrate:latest",
             "env": {
                 "NODE_ENV": "development",
                 "DEBUG": "app:*"
             }
         },
-        "migrate:make": {
+        "db:migrate:make": {
             "command": "knex --knexfile ./src/data/knexfile.js migrate:make $@",
             "env": {
                 "NODE_ENV": "development",
                 "DEBUG": "app:*"
             }
         },
-        "migrate:rollback": {
+        "db:migrate:rollback": {
             "command": "knex --knexfile ./src/data/knexfile.js migrate:rollback",
             "env": {
                 "NODE_ENV": "development",
                 "DEBUG": "app:*"
             }
         },
-        "seed": {
+        "db:seed": {
             "command": "knex --knexfile ./src/data/knexfile.js seed:run",
             "env": {
                 "NODE_ENV": "development",
                 "DEBUG": "app:*"
             }
         },
-        "seed:make": {
+        "db:seed:make": {
             "command": "knex --knexfile ./src/data/knexfile.js seed:make",
+            "env": {
+                "NODE_ENV": "development",
+                "DEBUG": "app:*"
+            }
+        },
+        "db:reset": {
+            "command": "yarn db:clean && yarn db:migrate && yarn db:seed",
             "env": {
                 "NODE_ENV": "development",
                 "DEBUG": "app:*"
@@ -97,27 +106,36 @@
         }
     },
     "dependencies": {
+        "apollo-client": "^0.7.1",
         "body-parser": "^1.15.2",
         "cors": "^2.8.1",
         "express": "^4.14.0",
+        "graphql": "^0.8.0",
         "graphql-server-express": "^0.4.3",
-        "graphql-tools": "^0.8.4",
+        "graphql-tag": "^1.2.2",
+        "graphql-tools": "^0.9.0",
         "knex": "^0.12.6",
         "lodash": "^4.17.3",
+        "normalize.css": "^5.0.0",
         "pg": "^6.1.2",
+        "pretty-error": "^2.0.2",
         "react": "^15.4.1",
+        "react-apollo": "^0.8.1",
         "react-dom": "^15.4.1",
-        "react-redux": "^5.0.1",
+        "react-redux": "^5.0.2",
         "react-router": "^3.0.0",
         "react-router-redux": "^4.0.7",
-        "redux": "^3.6.0"
+        "redux": "^3.6.0",
+        "redux-thunk": "^2.1.0"
     },
     "devDependencies": {
         "babel-cli": "^6.18.0",
+        "babel-core": "^6.21.0",
         "babel-loader": "^6.2.10",
+        "babel-plugin-transform-object-rest-spread": "^6.20.2",
         "babel-preset-env": "^1.1.4",
         "babel-preset-react": "^6.16.0",
-        "better-npm-run": "^0.0.13",
+        "better-npm-run": "^0.0.14",
         "casual": "^1.5.8",
         "compression": "^1.6.2",
         "css-loader": "^0.26.1",
@@ -135,6 +153,7 @@
         "nodemon": "^1.11.0",
         "package-json-to-readme": "^2.0.0",
         "react-hot-loader": "^1.3.1",
+        "redbox-react": "^1.3.3",
         "redux-logger": "^2.7.4",
         "sass-loader": "^4.1.1",
         "sqlite3": "^3.1.8",
@@ -145,8 +164,5 @@
         "webpack-dev-server": "2.2.0-rc.0",
         "webpack-hot-middleware": "^2.15.0",
         "webpack-node-externals": "^1.5.4"
-    },
-    "peerDependencies": {
-        "graphql": "^0.8.2"
     }
 }

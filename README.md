@@ -4,7 +4,7 @@ GraphQL Node.js Starter is a hot-reloading boilerplate using [Node.js](https://n
 
 The purpose of this starter kit is to be as close to being a real-world starter while keeping it simple and flexible.
 
-**Current Status: still in development, but follow along and contribute if you'd like.**
+**Current Status: still in development, but feel free to fork and contribute.**
 
 ## Installation
 
@@ -12,10 +12,11 @@ You can run these commands using [npm](https://www.npmjs.com/) but [Yarn](https:
 
 ```shell
 yarn install
-yarn migrate
-yarn seed
+yarn db:migrate
+yarn db:seed
 
-yarn start
+yarn api
+yarn start 
 ```
 
 ## Roadmap and Status
@@ -31,15 +32,16 @@ yarn start
 - [x] DB w/ relationships (1-1/1-M/M-M)
 - [x] Separate API Server and Client server
 - [x] Production vs Development build
+- [x] GraphQL client integration: Apollo
+- [x] GraphQL + Redux
+- [x] GraphQL query example
+- [ ] GraphQL mutation example
 - [ ] es2015+ everything
-- [ ] GraphQL client: Apollo vs Relay
-- [ ] Add Subscriptions
-- [ ] Authentication Example
-- [ ] Nginx
+- [ ] Add Subscriptions (trigger query after mutate)
+- [ ] Authentication
+- [ ] Nginx Conf
 - [ ] Dockerize
 - [ ] PostgreSQL
-- [ ] Data Loaders and prevent N+1 problems
-- [ ] Static Queries 
 - [ ] Deployment Scripts
 
 ## Schema-First Design Steps
@@ -64,25 +66,34 @@ Being that GraphQL is an abstraction that is somewhat geared towards UI requirem
 
 ## Dependencies
 
+- [apollo-client](https://github.com/apollostack/apollo-client): A simple yet functional GraphQL client.
 - [body-parser](): Node.js body parsing middleware
 - [cors](https://github.com/expressjs/cors): middleware for dynamically or statically enabling CORS in express/connect applications
 - [express](): Fast, unopinionated, minimalist web framework
+- [graphql](https://github.com/graphql/graphql-js): A Query Language and Runtime which can target any service.
 - [graphql-server-express](https://github.com/apollostack/graphql-server/tree/master/packages): Production-ready Node.js GraphQL server for Express and Connect
+- [graphql-tag](https://github.com/apollostack/graphql-tag): A JavaScript template literal tag that parses GraphQL queries
 - [graphql-tools](https://github.com/apollostack/graphql-tools): A set of useful tools for GraphQL
 - [knex](https://github.com/tgriesser/knex): A batteries-included SQL query &amp; schema builder for Postgres, MySQL and SQLite3 and the Browser
 - [lodash](): Lodash modular utilities.
+- [normalize.css](): A modern alternative to CSS resets
 - [pg](https://github.com/brianc/node-postgres): PostgreSQL client - pure javascript &amp; libpq with the same API
+- [pretty-error](https://github.com/AriaMinaei/pretty-error): See nodejs errors with less clutter
 - [react](): React is a JavaScript library for building user interfaces.
+- [react-apollo](https://github.com/apollostack/react-apollo): React data container for Apollo Client
 - [react-dom](): React package for working with the DOM.
 - [react-redux](https://github.com/reactjs/react-redux): Official React bindings for Redux
 - [react-router](): A complete routing library for React
 - [react-router-redux](): Ruthlessly simple bindings to keep react-router and redux in sync
 - [redux](https://github.com/reactjs/redux): Predictable state container for JavaScript apps
+- [redux-thunk](https://github.com/gaearon/redux-thunk): Thunk middleware for Redux.
 
 ## Dev Dependencies
 
 - [babel-cli](): Babel command line.
+- [babel-core](): Babel compiler core.
 - [babel-loader](https://github.com/babel/babel-loader): babel module loader for webpack
+- [babel-plugin-transform-object-rest-spread](): Compile object rest and spread to ES5
 - [babel-preset-env](): A Babel preset for each environment.
 - [babel-preset-react](): Babel preset for all React plugins.
 - [better-npm-run](https://github.com/benoror/better-npm-run): Better NPM scripts runner
@@ -103,6 +114,7 @@ Being that GraphQL is an abstraction that is somewhat geared towards UI requirem
 - [nodemon](https://github.com/remy/nodemon): Simple monitor script for use during development of a node.js app.
 - [package-json-to-readme](): Generate a README.md from package.json contents
 - [react-hot-loader](https://github.com/gaearon/react-hot-loader): Tweak React components in real time.
+- [redbox-react](https://github.com/commissure/redbox-react): A redbox (rsod) component to display your errors.
 - [redux-logger](https://github.com/theaqua/redux-logger): Logger for Redux
 - [sass-loader](https://github.com/jtangelder/sass-loader): Sass loader for webpack
 - [sqlite3](https://github.com/mapbox/node-sqlite3): Asynchronous, non-blocking SQLite3 bindings
