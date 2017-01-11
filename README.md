@@ -16,7 +16,10 @@ yarn db:migrate
 yarn db:seed
 
 yarn api
+# http://localhost:8080/graphql
+
 yarn start 
+# http://localhost:3000
 ```
 
 ## Roadmap and Status
