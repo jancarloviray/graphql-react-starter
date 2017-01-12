@@ -15,9 +15,13 @@ module.exports = {
   },
   globals: {
     'process.env': {
-      'NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+      'NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+      'PORT': process.env.PORT,
+      'API_PORT': process.env.API_PORT,
     },
     '__DEV__': process.env.NODE_ENV === 'development',
     '__PROD__': process.env.NODE_ENV === 'production',
+    '__PORT__': process.env.PORT,
+    '__API_PORT__': process.env.API_PORT,
   },
 }

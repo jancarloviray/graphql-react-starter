@@ -43,6 +43,7 @@ make start
 - [ ] Dockerize
 - [ ] PostgreSQL
 - [ ] Deploy to Cloud
+- [ ] Process Metrics and Health Checks
 
 ## Schema-First Design Steps
 
