@@ -23,6 +23,7 @@ ifndef API_PORT
 	API_PORT = 8080
 endif
 
+PROJECT_NAME = graphql-react-starter
 KNEXFILE = ./src/api/knexfile.js
 DEVDB = ./$(shell grep -o "\([[:alpha:]]*\.sqlite3\)" ${KNEXFILE})
 DEFAULT_MIGRATION_NAME = migration
@@ -53,20 +54,30 @@ start: killall
 		echo "In production mode:" ; \
 		$(MAKE) build ; \
 		NODE_ENV=$(NODE_ENV) DEBUG=$(DEBUG) PORT=$(PORT) API_PORT=$(API_PORT) \
-		pm2 start ecosystem.config.js --env production ; \
+		PM2_HOME='.pm2' pm2 start ecosystem.config.js --name=$(PROJECT_NAME) --env production ; \
 		echo "client port: $(PORT)" ; \
 		echo "api port: $(API_PORT)" ; \
 	else \
 		echo "In development mode:" ; \
 		NODE_ENV=$(NODE_ENV) DEBUG=$(DEBUG) PORT=$(PORT) API_PORT=$(API_PORT) \
-		pm2 start ecosystem.config.js --env development ; \
+		PM2_HOME='.pm2' pm2 start ecosystem.config.js --name=$(PROJECT_NAME) --env development ; \
 		echo "client port: $(PORT)" ; \
 		echo "api port: $(API_PORT)" ; \
 	fi
 
 .PHONY: killall
 killall:
-	pm2 kill
+	PM2_HOME='.pm2' pm2 kill
+	@-rm -rf .pm2/*
+
+list:
+	PM2_HOME='.pm2' pm2 list
+
+logs:
+	PM2_HOME='.pm2' DEBUG="*" pm2 logs --no-daemon
+
+monit:
+	PM2_HOME='.pm2' pm2 monit
 
 .PHONY: lint
 lint:
