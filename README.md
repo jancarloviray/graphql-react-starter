@@ -9,16 +9,14 @@ The purpose of this starter kit is to be as close to being a real-world starter 
 ## Installation
 
 ```shell
+# install process manager
 npm install pm2@latest -g
-# yarn global add pm2@latest
 
+# install dependencies and setup database
 make install
-make migrate
-make seed
 
+# start both api and client process
 make start
-# api: http://localhost:8080/graphql
-# web: http://localhost:3000
 ```
 
 ## Roadmap and Status
