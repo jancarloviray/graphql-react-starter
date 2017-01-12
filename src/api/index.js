@@ -23,20 +23,20 @@ const app = express()
 app.use('*', cors())
 
 app.use('/graphql', bodyParser.json(), graphqlExpress((/*req*/) => {
-    let user // = req.session.user
-    return {
-        schema,
-        pretty: true,
-        allowUndefinedInResolve: false,
-        context: {
-            user,
-        },
-    }
+  let user // = req.session.user
+  return {
+    schema,
+    pretty: true,
+    allowUndefinedInResolve: false,
+    context: {
+      user,
+    },
+  }
 }))
 
 app.use('/graphiql', graphiqlExpress({
-    endpointURL: '/graphql',
-    query: `
+  endpointURL: '/graphql',
+  query: `
     {
         users {
             name
@@ -50,14 +50,14 @@ app.use('/graphiql', graphiqlExpress({
 }))
 
 app.use('/schema', (req, res) => {
-    res.set('Content-Type', 'text/plain')
-    res.send(printSchema(schema))
+  res.set('Content-Type', 'text/plain')
+  res.send(printSchema(schema))
 })
 
 // catch all
 app.use((err, req, res, next) => {
-    process.stderr.write(pe.render(err))
-    next()
+  process.stderr.write(pe.render(err))
+  next()
 })
 
 const server = app.listen(GRAPHQL_PORT, () => {
@@ -68,8 +68,8 @@ const server = app.listen(GRAPHQL_PORT, () => {
 // temp fix for nodemon EADDRINUSE
 const term = ['exit', 'uncaughtException', 'SIGTERM', 'SIGINT']
 term.forEach((message) => {
-    process.on(message, () => {
-        db.destroy()
-        server.close()
-    })
+  process.on(message, () => {
+    db.destroy()
+    server.close()
+  })
 })

@@ -16,14 +16,14 @@ export const schema = [`
 `]
 
 export const resolvers = {
-    Account: {
-        async owners({ accountId }) {
-            return await db
-                .select('Users.*')
-                .from('Users_Accounts')
-                .join('Accounts', 'Users_Accounts.accountId', 'Accounts.accountId')
-                .join('Users', 'Users_Accounts.userId', 'Users.userId')
-                .where('Accounts.accountId', accountId) || null
-        }
-    },
+  Account: {
+    async owners({ accountId }) {
+      return await db
+        .select('Users.*')
+        .from('Users_Accounts')
+        .join('Accounts', 'Users_Accounts.accountId', 'Accounts.accountId')
+        .join('Users', 'Users_Accounts.userId', 'Users.userId')
+        .where('Accounts.accountId', accountId) || null
+    }
+  },
 }

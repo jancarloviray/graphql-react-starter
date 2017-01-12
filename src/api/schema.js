@@ -16,13 +16,13 @@ const schema = [`
 `]
 
 const typeDefs = [
-    ...Account.schema,
-    ...RootMutation.schema,
-    ...RootQuery.schema,
-    ...Transaction.schema,
-    ...TransactionType.schema,
-    ...User.schema,
-    ...schema,
+  ...Account.schema,
+  ...RootMutation.schema,
+  ...RootQuery.schema,
+  ...Transaction.schema,
+  ...TransactionType.schema,
+  ...User.schema,
+  ...schema,
 ]
 
 const resolvers = merge(

@@ -27,16 +27,16 @@ export const schema = [`
 `]
 
 export const resolvers = {
-    Mutation: {
-        async createUser(_, args) {
-            return await db.insert(args).into('Users').returning('*')
-        },
-        async createAccount(_, args) {
-            return await db.insert(args).into('Accounts').returning('*')
-        },
-        async createTransaction(_, args) {
-            args.sessionId = 'someRandomSesseionGUID'
-            return await db.insert(args).into('Transactions').returning('*')
-        }
+  Mutation: {
+    async createUser(_, args) {
+      return await db.insert(args).into('Users').returning('*')
     },
+    async createAccount(_, args) {
+      return await db.insert(args).into('Accounts').returning('*')
+    },
+    async createTransaction(_, args) {
+      args.sessionId = 'someRandomSesseionGUID'
+      return await db.insert(args).into('Transactions').returning('*')
+    }
+  },
 }

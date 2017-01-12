@@ -1,46 +1,58 @@
 {
-    "env": {
-        "browser": true,
-        "es6": true,
-        "node": true
+  "env": {
+    "browser": true,
+    "es6": true,
+    "node": true
+  },
+  "globals": {
+    "__DEV__": true,
+    "__PROD__": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended"
+  ],
+  "parserOptions": {
+    "ecmaVersion": 2017,
+    "ecmaFeatures": {
+      "experimentalObjectRestSpread": true,
+      "classes": true,
+      "jsx": true
     },
-    "globals": {
-        "__DEV__": true,
-        "__PROD__": true
-    },
-    "extends": [
-        "eslint:recommended",
-        "plugin:react/recommended"
+    "sourceType": "module"
+  },
+  "plugins": [
+    "react",
+    "graphql"
+  ],
+  "rules": {
+    "indent": [
+      "error",
+      2
     ],
-    "parserOptions": {
-        "ecmaVersion": 2017,
-        "ecmaFeatures": {
-            "experimentalObjectRestSpread": true,
-            "classes": true,
-            "jsx": true
-        },
-        "sourceType": "module"
-    },
-    "plugins": [
-        "react",
-        "graphql"
+    "max-len": [
+      "error",
+      {
+        "code": 80,
+        "tabWidth": 4,
+        "ignoreComments": true,
+        "ignoreUrls": true,
+        "ignoreStrings": true,
+        "ignoreTemplateLiterals": true,
+        "ignoreRegExpLiterals": true
+      }
     ],
-    "rules": {
-        "indent": [
-            "error",
-            4
-        ],
-        "linebreak-style": [
-            "error",
-            "unix"
-        ],
-        "quotes": [
-            "error",
-            "single"
-        ],
-        "semi": [
-            "error",
-            "never"
-        ]
-    }
+    "linebreak-style": [
+      "error",
+      "unix"
+    ],
+    "quotes": [
+      "error",
+      "single"
+    ],
+    "semi": [
+      "error",
+      "never"
+    ]
+  }
 }

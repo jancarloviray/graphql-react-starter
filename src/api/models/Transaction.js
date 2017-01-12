@@ -8,20 +8,20 @@ export const schema = [`
         note: String
         createdDate: String
 
-        # What account is this transaction 
+        # What account is this transaction
         # made to?
         account: Account
     }
 `]
 
 export const resolvers = {
-    Transaction: {
-        async account({ accountId }) {
-            return await db
-                .select('*')
-                .from('Accounts')
-                .where({ accountId: accountId })
-                .first() || null
-        }
+  Transaction: {
+    async account({ accountId }) {
+      return await db
+        .select('*')
+        .from('Accounts')
+        .where({ accountId: accountId })
+        .first() || null
     }
+  }
 }

@@ -16,8 +16,8 @@ import Users from '../components/Users'
     implementing our wrapper around increment; the component doesn't care   */
 
 const USERS_QUERY = gql`
-query { 
-    users { 
+query {
+    users {
         userId
         name
         accounts {
@@ -25,7 +25,7 @@ query {
             type
             total
         }
-    } 
+    }
 }
 `
 
@@ -36,8 +36,8 @@ mutation createUser($name: String!){
 `
 
 const mapDispatchToProps = {
-    increment: () => increment(1),
-    doubleAsync
+  increment: () => increment(1),
+  doubleAsync
 }
 
 /*  Note: mapStateToProps is where you should use `reselect` to create selectors, ie:
@@ -53,14 +53,14 @@ const mapDispatchToProps = {
     https://github.com/reactjs/reselect    */
 
 export default compose(
-    graphql(USERS_QUERY, {
-        // too aggressive, but just for demonstration
-        options: { pollInterval: 5000 }
-    }),
-    graphql(createUser, {
-        props: ({ mutate }) => ({
-            createUser: (name) => mutate({ variables: { name } })
-        })
-    }),
-    connect(null, mapDispatchToProps)
+  graphql(USERS_QUERY, {
+    // too aggressive, but just for demonstration
+    options: { pollInterval: 5000 }
+  }),
+  graphql(createUser, {
+    props: ({ mutate }) => ({
+      createUser: (name) => mutate({ variables: { name } })
+    })
+  }),
+  connect(null, mapDispatchToProps)
 )(Users)

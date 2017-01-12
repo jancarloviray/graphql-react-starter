@@ -8,5 +8,5 @@ export const schema = [`
 `]
 
 export const resolvers = {
-    TransactionType: {}
+  TransactionType: {}
 }
