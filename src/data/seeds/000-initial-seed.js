@@ -40,27 +40,21 @@ const transactions = _.times(numTransactionSeed, () => ({
     note: casual.sentence,
 }))
 
-exports.seed = function (knex, Promise) {
+exports.seed = function (knex) {
     return knex.transaction((trx) => {
-        new Promise.all([
+        Promise.all([
+            // delete tables
             knex('Users_Accounts').transacting(trx).del(),
             knex('Transactions').transacting(trx).del(),
             knex('Users').transacting(trx).del(),
             knex('Accounts').transacting(trx).del(),
             knex('TransactionTypes').transacting(trx).del(),
-        ]).then(() => {
-            // ugh...
-            return knex('Users').transacting(trx).insert(users).then(() => {
-                knex('Accounts').transacting(trx).insert(accounts).then(() => {
-                    knex('Users_Accounts').transacting(trx).insert(users_accounts).then(() => {
-                        knex('TransactionTypes').transacting(trx).insert(transactionTypes).then(() => {
-                            knex('Transactions').transacting(trx).insert(transactions).then(() => {
-                                trx.commit()
-                            })
-                        })
-                    })
-                })
-            }).catch(trx.rollback)
-        })
+            // insert data
+            knex('Users').transacting(trx).insert(users),
+            knex('Accounts').transacting(trx).insert(accounts),
+            knex('Users_Accounts').transacting(trx).insert(users_accounts),
+            knex('TransactionTypes').transacting(trx).insert(transactionTypes),
+            knex('Transactions').transacting(trx).insert(transactions),
+        ]).then(trx.commit).catch(trx.rollback)
     })
 }
