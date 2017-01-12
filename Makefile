@@ -23,7 +23,7 @@ ifndef API_PORT
 	API_PORT = 8080
 endif
 
-PROJECT_NAME = graphql-react-starter
+PROJECT_NAME = $(shell cat package.json | grep '"name"' | head -1 | awk -F: '{ print $$2 }' | sed 's/[",]//g' | tr -d '[[:space:]]')
 KNEXFILE = ./src/api/knexfile.js
 DEVDB = ./$(shell grep -o "\([[:alpha:]]*\.sqlite3\)" ${KNEXFILE})
 DEFAULT_MIGRATION_NAME = migration
@@ -70,12 +70,15 @@ killall:
 	PM2_HOME='.pm2' pm2 kill
 	@-rm -rf .pm2/*
 
+.PHONY: list
 list:
 	PM2_HOME='.pm2' pm2 list
 
+.PHONY: logs
 logs:
 	PM2_HOME='.pm2' DEBUG="*" pm2 logs --no-daemon
 
+.PHONY: monit
 monit:
 	PM2_HOME='.pm2' pm2 monit
 
