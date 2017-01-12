@@ -11,6 +11,8 @@ module.exports = {
     {
       name: 'api',
       script: __PROD__ ? './dist/api/index.js' : './src/api/index.js',
+      watch: __PROD__ ? false : ['./src/api'],
+      ignore_watch: ['node_modules'],
       env: {
         NODE_ENV: 'development',
         DEBUG: process.env.DEBUG,
@@ -28,15 +30,20 @@ module.exports = {
       name: 'client',
       // for production mode, just use a node webserver for now..
       script: './src/client/devServer.js',
+      // we have hot-loading already so no need for watch in client
+      watch: false,
+      ignore_watch: ['node_modules'],
       env: {
         NODE_ENV: 'development',
         DEBUG: process.env.DEBUG,
-        PORT: process.env.PORT
+        PORT: process.env.PORT,
+        API_PORT: process.env.API_PORT
       },
       env_production: {
         NODE_ENV: 'production',
         DEBUG: process.env.DEBUG,
-        PORT: process.env.PORT
+        PORT: process.env.PORT,
+        API_PORT: process.env.API_PORT
       }
     }
   ],
