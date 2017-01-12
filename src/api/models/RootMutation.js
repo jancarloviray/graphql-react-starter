@@ -1,6 +1,6 @@
-import db from '../../data/lib/db'
+const db = require('../data/lib/db')
 
-export const schema = [`
+exports.schema = [`
     type Mutation {
         # Creates a new User and returns its Id
         createUser(
@@ -26,17 +26,17 @@ export const schema = [`
     }
 `]
 
-export const resolvers = {
+exports.resolvers = {
   Mutation: {
-    async createUser(_, args) {
-      return await db.insert(args).into('Users').returning('*')
+    createUser(_, args) {
+      return db.insert(args).into('Users').returning('*')
     },
-    async createAccount(_, args) {
-      return await db.insert(args).into('Accounts').returning('*')
+    createAccount(_, args) {
+      return  db.insert(args).into('Accounts').returning('*')
     },
-    async createTransaction(_, args) {
+    createTransaction(_, args) {
       args.sessionId = 'someRandomSesseionGUID'
-      return await db.insert(args).into('Transactions').returning('*')
+      return  db.insert(args).into('Transactions').returning('*')
     }
   },
 }

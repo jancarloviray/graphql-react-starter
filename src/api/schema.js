@@ -1,16 +1,16 @@
-import { makeExecutableSchema } from 'graphql-tools'
-import { merge } from 'lodash'
+const { makeExecutableSchema } = require('graphql-tools')
+const { merge } = require('lodash')
 
-import * as Account from './models/Account'
-import * as RootMutation from './models/RootMutation'
-import * as RootQuery from './models/RootQuery'
-import * as Transaction from './models/Transaction'
-import * as TransactionType from './models/TransactionType'
-import * as User from './models/User'
+const Account = require('./models/Account')
+const RootMutation = require('./models/RootMutation')
+const RootQuery = require('./models/RootQuery')
+const Transaction = require('./models/Transaction')
+const TransactionType = require('./models/TransactionType')
+const User = require('./models/User')
 
 const schema = [`
     schema {
-        query: Query 
+        query: Query
         mutation: Mutation
     }
 `]
@@ -34,4 +34,4 @@ const resolvers = merge(
     User.resolvers
 )
 
-export default makeExecutableSchema({ typeDefs, resolvers })
+module.exports = makeExecutableSchema({ typeDefs, resolvers })

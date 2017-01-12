@@ -1,4 +1,4 @@
-export const schema = [`
+exports.schema = [`
     # Used for Transaction.type and defines 
     # whether an account is checking or savings
     type TransactionType {
@@ -7,6 +7,6 @@ export const schema = [`
     }
 `]
 
-export const resolvers = {
+exports.resolvers = {
   TransactionType: {}
 }

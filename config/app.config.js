@@ -6,10 +6,11 @@ module.exports = {
   paths: {
     dist: path.resolve(__dirname, '../dist'),
     public: path.resolve(__dirname, '../src/client/public'),
-    client: path.resolve(__dirname, '../src/client')
+    client: path.resolve(__dirname, '../src/client'),
+    api: path.resolve(__dirname, '../src/api/')
   },
   devServer: {
-    port: 3000,
+    port: process.env.PORT || 3000,
     host: ip.address(),
   },
   globals: {

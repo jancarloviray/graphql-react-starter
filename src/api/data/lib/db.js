@@ -1,7 +1,7 @@
-import knex from 'knex'
-import knexfile from '../knexfile'
-import debug from 'debug'
-import util from 'util'
+const knex = require('knex')
+const knexfile = require('../../knexfile')
+const debug = require('debug')
+const util = require('util')
 
 const log = debug('app:data')
 
@@ -10,4 +10,4 @@ const config = knexfile[env]
 
 log(`Connected to ${config.client} with parameters: ${util.inspect(config.connection, { colors: true })}`)
 
-export default knex(config)
+module.exports = knex(config)

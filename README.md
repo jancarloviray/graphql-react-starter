@@ -8,18 +8,17 @@ The purpose of this starter kit is to be as close to being a real-world starter 
 
 ## Installation
 
-You can run these commands using [npm](https://www.npmjs.com/) but [Yarn](https://yarnpkg.com/en/docs/install) is a better alternative. [Why?](https://github.com/yarnpkg/yarn) Offline mode, deterministic installation, network performance and resilience. 
-
 ```shell
-yarn install
-yarn db:migrate
-yarn db:seed
+npm install pm2@latest -g
+# yarn global add pm2@latest
 
-yarn api
-# http://localhost:8080/graphql
+make install
+make migrate
+make seed
 
-yarn start 
-# http://localhost:3000
+make start
+# api: http://localhost:8080/graphql
+# web: http://localhost:3000
 ```
 
 ## Roadmap and Status
@@ -39,12 +38,13 @@ yarn start
 - [x] GraphQL + Redux
 - [x] GraphQL query example
 - [x] GraphQL mutation example
+- [x] Convert scripts to Makefile
+- [x] Process Management
 - [ ] Add Subscriptions (trigger query after mutate)
 - [ ] Authentication
-- [ ] Nginx Conf
 - [ ] Dockerize
 - [ ] PostgreSQL
-- [ ] Deployment Scripts
+- [ ] Deploy to Cloud
 
 ## Schema-First Design Steps
 
@@ -71,6 +71,7 @@ Being that GraphQL is an abstraction that is somewhat geared towards UI requirem
 - [apollo-client](https://github.com/apollostack/apollo-client): A simple yet functional GraphQL client.
 - [body-parser](): Node.js body parsing middleware
 - [cors](https://github.com/expressjs/cors): middleware for dynamically or statically enabling CORS in express/connect applications
+- [cssnano](): A modular minifier, built on top of the PostCSS ecosystem.
 - [express](): Fast, unopinionated, minimalist web framework
 - [graphql](https://github.com/graphql/graphql-js): A Query Language and Runtime which can target any service.
 - [graphql-server-express](https://github.com/apollostack/graphql-server/tree/master/packages): Production-ready Node.js GraphQL server for Express and Connect
@@ -86,7 +87,6 @@ Being that GraphQL is an abstraction that is somewhat geared towards UI requirem
 - [react-dom](): React package for working with the DOM.
 - [react-redux](https://github.com/reactjs/react-redux): Official React bindings for Redux
 - [react-router](): A complete routing library for React
-- [react-router-redux](): Ruthlessly simple bindings to keep react-router and redux in sync
 - [redux](https://github.com/reactjs/redux): Predictable state container for JavaScript apps
 - [redux-thunk](https://github.com/gaearon/redux-thunk): Thunk middleware for Redux.
 
@@ -96,6 +96,7 @@ Being that GraphQL is an abstraction that is somewhat geared towards UI requirem
 - [babel-core](): Babel compiler core.
 - [babel-loader](https://github.com/babel/babel-loader): babel module loader for webpack
 - [babel-plugin-transform-object-rest-spread](): Compile object rest and spread to ES5
+- [babel-plugin-transform-runtime](): Externalise references to helpers and builtins, automatically polyfilling your code without polluting globals
 - [babel-preset-env](): A Babel preset for each environment.
 - [babel-preset-react](): Babel preset for all React plugins.
 - [better-npm-run](https://github.com/benoror/better-npm-run): Better NPM scripts runner
@@ -115,6 +116,7 @@ Being that GraphQL is an abstraction that is somewhat geared towards UI requirem
 - [node-sass](https://github.com/sass/node-sass): Wrapper around libsass
 - [nodemon](https://github.com/remy/nodemon): Simple monitor script for use during development of a node.js app.
 - [package-json-to-readme](): Generate a README.md from package.json contents
+- [postcss-loader](): PostCSS loader for webpack
 - [react-hot-loader](https://github.com/gaearon/react-hot-loader): Tweak React components in real time.
 - [redbox-react](https://github.com/commissure/redbox-react): A redbox (rsod) component to display your errors.
 - [redux-logger](https://github.com/theaqua/redux-logger): Logger for Redux

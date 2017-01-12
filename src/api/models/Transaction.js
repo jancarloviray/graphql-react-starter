@@ -1,6 +1,6 @@
-import db from '../../data/lib/db'
+const db = require('../data/lib/db')
 
-export const schema = [`
+exports.schema = [`
     type Transaction {
         transactionId: Int!
         transactionTypeId: Int
@@ -14,14 +14,14 @@ export const schema = [`
     }
 `]
 
-export const resolvers = {
+exports.resolvers = {
   Transaction: {
-    async account({ accountId }) {
-      return await db
-        .select('*')
-        .from('Accounts')
-        .where({ accountId: accountId })
-        .first() || null
+    account({ accountId }) {
+      return  db
+                .select('*')
+                .from('Accounts')
+                .where({ accountId: accountId })
+                .first() || null
     }
   }
 }

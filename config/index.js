@@ -1,5 +1,5 @@
-import webpack from './webpack.config'
-import app from './app.config'
+const webpack = require('./client.webpack.config')
+const app = require('./app.config')
 
 module.exports = {
   webpack,

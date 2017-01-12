@@ -1,13 +1,13 @@
-import express from 'express'
-import { graphqlExpress, graphiqlExpress } from 'graphql-server-express'
-import { printSchema } from 'graphql'
-import bodyParser from 'body-parser'
-import cors from 'cors'
-import PrettyError from 'pretty-error'
-import debug from 'debug'
+const express = require('express')
+const { graphqlExpress, graphiqlExpress } = require('graphql-server-express')
+const { printSchema } = require('graphql')
+const bodyParser = require('body-parser')
+const cors = require('cors')
+const PrettyError = require('pretty-error')
+const debug = require('debug')
 
-import db from '../data/lib/db'
-import schema from './schema'
+const db = require('./data/lib/db')
+const schema = require('./schema')
 
 const pe = new PrettyError()
 pe.start()
@@ -16,7 +16,7 @@ pe.skipPackage('express')
 
 const log = debug('app:api')
 
-const GRAPHQL_PORT = process.env.API_PORT
+const GRAPHQL_PORT = process.env.API_PORT || 8080
 
 const app = express()
 
@@ -41,7 +41,7 @@ app.use('/graphiql', graphiqlExpress({
         users {
             name
             accounts {
-                type 
+                type
                 total
             }
         }
@@ -61,8 +61,8 @@ app.use((err, req, res, next) => {
 })
 
 const server = app.listen(GRAPHQL_PORT, () => {
-    // eslint-disable-next-line
-    log(`GraphQL Server is now running on http://localhost:${GRAPHQL_PORT}/graphql`)
+  // eslint-disable-next-line
+  log(`GraphQL Server is now running on http://localhost:${GRAPHQL_PORT}/graphql`)
 })
 
 // temp fix for nodemon EADDRINUSE

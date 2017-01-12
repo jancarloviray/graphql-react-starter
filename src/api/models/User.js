@@ -1,6 +1,6 @@
-import db from '../../data/lib/db'
+const db = require('../data/lib/db')
 
-export const schema = [`
+exports.schema = [`
     type User {
         userId: Int!
         createdDate: String
@@ -16,22 +16,22 @@ export const schema = [`
     }
 `]
 
-export const resolvers = {
+exports.resolvers = {
   User: {
-    async referrer({ refId }) {
+    referrer({ refId }) {
       return refId ? db
-        .select('*')
-        .from('Users')
-        .where({ userId: refId })
-        .first() : null
+                .select('*')
+                .from('Users')
+                .where({ userId: refId })
+                .first() : null
     },
-    async accounts({ userId }) {
-      return await db
-        .select('Accounts.*')
-        .from('Users_Accounts')
-        .join('Accounts', 'Users_Accounts.accountId', 'Accounts.accountId')
-        .join('Users', 'Users_Accounts.userId', 'Users.userId')
-        .where('Users.userId', userId) || null
+    accounts({ userId }) {
+      return  db
+                .select('Accounts.*')
+                .from('Users_Accounts')
+                .join('Accounts', 'Users_Accounts.accountId', 'Accounts.accountId')
+                .join('Users', 'Users_Accounts.userId', 'Users.userId')
+                .where('Users.userId', userId) || null
     }
   }
 }

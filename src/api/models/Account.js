@@ -1,6 +1,6 @@
-import db from '../../data/lib/db'
+const db = require('../data/lib/db')
 
-export const schema = [`
+exports.schema = [`
     type Account {
         accountId: Int!
         name: String
@@ -15,10 +15,10 @@ export const schema = [`
     }
 `]
 
-export const resolvers = {
+exports.resolvers = {
   Account: {
-    async owners({ accountId }) {
-      return await db
+    owners({ accountId }) {
+      return  db
         .select('Users.*')
         .from('Users_Accounts')
         .join('Accounts', 'Users_Accounts.accountId', 'Accounts.accountId')

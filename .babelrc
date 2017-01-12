@@ -1,14 +1,21 @@
 {
-    "presets": [
-        "env",
-        "react"
+  "presets": [
+    "env",
+    "react"
+  ],
+  "plugins": [
+    [
+      "transform-object-rest-spread",
+      {
+        "useBuiltIns": true
+      }
     ],
-    "plugins": [
-        [
-            "transform-object-rest-spread",
-            {
-                "useBuiltIns": true
-            }
-        ]
+    // https://github.com/babel/babel/issues/2877
+    [
+      "transform-runtime",
+      {
+        "polyfill": false
+      }
     ]
+  ]
 }
