@@ -5,7 +5,7 @@ const webpack = require('webpack')
 const log = require('debug')('app:config:webpack')
 const nodeExternals = require('webpack-node-externals')
 
-const appConfig = require('./app.config')
+const clientConfig = require('./client.config')
 const pkg = require('../package.json')
 
 const __PROD__ = process.env.NODE_ENV === 'production'
@@ -66,15 +66,15 @@ const config = {
 }
 
 function entry() {
-  let app = [path.resolve(appConfig.paths.api, './index')]
-  return app
+  let client = [path.resolve(clientConfig.paths.api, './index')]
+  return client
 }
 
 function output() {
   return {
     // the target directory for all output files must be an absolute path
     // path: path.join(__dirname, '/dist', '/assets'),
-    path: path.join(appConfig.paths.dist, './api'),
+    path: path.join(clientConfig.paths.dist, './api'),
 
     // the filename template for entry chunks: "bundle.js" "[name].js" "[chunkhash].js"
     filename: 'index.js',
@@ -92,7 +92,7 @@ function plugins() {
   log('Enable common plugins: Define, LoaderOptions, HtmlWebpack, CommonsChunk')
   const common = [
     // map variables
-    new webpack.DefinePlugin(appConfig.globals),
+    new webpack.DefinePlugin(clientConfig.globals),
   ]
 
   if (__PROD__) {
@@ -117,7 +117,7 @@ function resolve() {
   return {
     modules: [
       'node_modules',
-      appConfig.paths.api
+      clientConfig.paths.api
     ],
     extensions: ['.js', '.jsx', '.json']
   }
@@ -135,7 +135,7 @@ function modules() {
       {
         test: /\.(js|jsx)$/,
         include: [
-          appConfig.paths.api
+          clientConfig.paths.api
         ],
         exclude: [
           /node_modules/,

@@ -7,7 +7,7 @@ const log = require('debug')('app:config:webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
-const appConfig = require('./app.config')
+const clientConfig = require('./client.config')
 const pkg = require('../package.json')
 
 const __PROD__ = process.env.NODE_ENV === 'production'
@@ -62,7 +62,7 @@ const config = {
 
 function entry() {
   let entry = { app: null, vendor }
-  let app = [path.resolve(appConfig.paths.client, './index')]
+  let app = [path.resolve(clientConfig.paths.client, './index')]
   if (!__PROD__) app.unshift('webpack-hot-middleware/client?reload=true')
   entry.app = app
   return entry
@@ -72,13 +72,13 @@ function output() {
   return {
     // the target directory for all output files must be an absolute path
     // path: path.join(__dirname, '/dist', '/assets'),
-    path: appConfig.paths.dist,
+    path: clientConfig.paths.dist,
 
     // the filename template for entry chunks: "bundle.js" "[name].js" "[chunkhash].js"
     filename: '[name].[hash].js',
 
     // the url to the output directory resolved relative to the HTML page
-    publicPath: __PROD__ ? '/' : `http://${appConfig.devServer.host}:${appConfig.devServer.port}/`
+    publicPath: __PROD__ ? '/' : `http://${clientConfig.devServer.host}:${clientConfig.devServer.port}/`
   }
 }
 
@@ -90,7 +90,7 @@ function plugins() {
   log('Enable common plugins: Define, LoaderOptions, HtmlWebpack, CommonsChunk')
   const common = [
     // map variables
-    new webpack.DefinePlugin(appConfig.globals),
+    new webpack.DefinePlugin(clientConfig.globals),
 
     new webpack.LoaderOptionsPlugin({
       options: {
@@ -113,16 +113,16 @@ function plugins() {
           })
         ],
         sassLoader: {
-          includePaths: path.resolve(appConfig.paths.client, './styles')
+          includePaths: path.resolve(clientConfig.paths.client, './styles')
         }
       }
     }),
 
     // parse html
     new HtmlWebpackPlugin({
-      template: path.resolve(appConfig.paths.public, './index.html'),
+      template: path.resolve(clientConfig.paths.public, './index.html'),
       hash: false,
-      favicon: path.resolve(appConfig.paths.public, './favicon.ico'),
+      favicon: path.resolve(clientConfig.paths.public, './favicon.ico'),
       filename: 'index.html',
       inject: 'body',
       minify: { collapseWhitespace: true }
@@ -165,7 +165,7 @@ function resolve() {
   return {
     modules: [
       'node_modules',
-      appConfig.paths.client
+      clientConfig.paths.client
     ],
     extensions: ['.js', '.jsx', '.json']
   }
@@ -186,7 +186,7 @@ function modules() {
       {
         test: /\.(js|jsx)$/,
         include: [
-          appConfig.paths.client
+          clientConfig.paths.client
         ],
         exclude: [
           /node_modules/,

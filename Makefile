@@ -117,8 +117,8 @@ setup-db:
 	NODE_ENV=$(NODE_ENV) $(MAKE) migrate
 	NODE_ENV=$(NODE_ENV) $(MAKE) seed
 
-.PHONY: deploy-app
-deploy-app:
+.PHONY: deploy-client
+deploy-client:
 
 .PHONY: deploy-api
 deploy-api:
