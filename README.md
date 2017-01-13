@@ -9,14 +9,50 @@ The purpose of this starter kit is to be as close to being a real-world starter 
 ## Installation
 
 ```shell
-# install process manager
-npm install pm2@latest -g
-
-# install dependencies and setup database
+# Installs dependencies and setup development database. This uses `yarn` 
+# if you have it, but defaults to `npm` if you don't
 make install
+```
+
+## Development 
+
+```shell
+# In development mode, everything is streamed from the source code. No files 
+# are created (except the in-memory compilation of webpack-middleware). This 
+# allows hot reloading to happen.
 
 # start both api and client process
 make start
+
+# this uses PM2 to do the watching, process management, monitoring and the 
+# meta data are inside this directory's .pm2. You must prepend that in order 
+# to access pm2 commands.
+PM2_HOME='.pm2' ./node_modules/.bin/pm2 list
+
+# alternatively, you can use
+npm run pm2 [list|help|..]
+```
+
+## Production 
+
+```shell
+# Compiles and minifies both api and client into ./dist
+make build
+
+# Next, compress and copy the entire ./dist to a proper server.
+# You do not need to copy anything else from the repository.
+
+# Run the client. `http-server` is just an example server.
+# Use Nginx, Apache or whatever you like to run the client.
+# Everything including styles, javascript, html are compiled here.
+NODE_ENV=production PORT=3000 API_PORT=8080 http-server ./dist
+
+# Run the API. You must use `node` here. All ES2015+ features 
+# have been compiled. If you are getting unexpected token errors,
+# then upgrade your node binaries. Note that this is expecting 
+# a postgres server. You can change the options in the `knexfile.js`
+# and use a different database if you want.
+NODE_ENV=production API_PORT=8080 node ./api/index.js
 ```
 
 ## Roadmap and Status
@@ -27,9 +63,10 @@ make start
 - [x] Webpack 2
 - [x] React Router 
 - [x] ESLint
+- [x] .editorconfig
 - [x] GraphQL integration with Express
 - [x] Modularize Schema and Resolvers
-- [x] DB w/ relationships (1-1/1-M/M-M)
+- [x] Database Schema with relationships (1-1/1-M/M-M)
 - [x] Separate API Server and Client server
 - [x] Production vs Development build
 - [x] GraphQL client integration: Apollo
