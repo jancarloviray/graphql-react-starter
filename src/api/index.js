@@ -61,15 +61,21 @@ app.use((err, req, res, next) => {
 })
 
 const server = app.listen(GRAPHQL_PORT, () => {
-  // eslint-disable-next-line
   log(`GraphQL Server is now running on http://localhost:${GRAPHQL_PORT}/graphql`)
 })
 
-// temp fix for nodemon EADDRINUSE
-const term = ['exit', 'uncaughtException', 'SIGTERM', 'SIGINT']
+const term = [
+  'exit',
+  'uncaughtException',
+  'SIGTERM',
+  'SIGINT'
+]
+
 term.forEach((message) => {
   process.on(message, () => {
+    log(`Application received: ${message}. Application will now cleanup and terminate.`)
     db.destroy()
     server.close()
+    process.exit(1)
   })
 })
