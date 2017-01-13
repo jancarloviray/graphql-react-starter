@@ -9,27 +9,26 @@ The purpose of this starter kit is to be as close to being a real-world starter 
 ## Installation
 
 ```shell
-# Installs dependencies and setup development database. This uses `yarn` 
-# if you have it, but defaults to `npm` if you don't
+# Installs dependencies and sets up the development database. This uses `yarn` 
+# if you have it but defaults to `npm` if you don't
 make install
 ```
 
 ## Development 
 
 ```shell
-# In development mode, everything is streamed from the source code. No files 
-# are created (except the in-memory compilation of webpack-middleware). This 
-# allows hot reloading to happen.
+# In development mode, everything is streamed from the source code. No files are 
+# created (except the in-memory compilation of webpack-middleware). This allows 
+# hot reloading to happen.
 
 # start both api and client process
 make start
 
-# this uses PM2 to do the watching, process management, monitoring and the 
-# meta data are inside this directory's .pm2. You must prepend that in order 
-# to access pm2 commands.
+# Uses PM2 for watch, management, monitoring. The meta data is inside this 
+# directory's .pm2. You must prepend that in order to access pm2 commands.
 PM2_HOME='.pm2' ./node_modules/.bin/pm2 list
 
-# alternatively, you can use
+# alternatively, you can use:
 npm run pm2 [list|help|..]
 ```
 
@@ -39,19 +38,17 @@ npm run pm2 [list|help|..]
 # Compiles and minifies both api and client into ./dist
 make build
 
-# Next, compress and copy the entire ./dist to a proper server.
-# You do not need to copy anything else from the repository.
+# Next, compress and copy the entire ./dist to a proper server. You do not need 
+# to copy anything else from the repository.
 
-# Run the client. `http-server` is just an example server.
-# Use Nginx, Apache or whatever you like to run the client.
-# Everything including styles, javascript, html are compiled here.
+# Run the client. `http-server` is just an example server. Use Nginx, Apache or 
+# whatever you like to run the client. Everything you need is compiled in .dist.
 NODE_ENV=production PORT=3000 API_PORT=8080 http-server ./dist
 
-# Run the API. You must use `node` here. All ES2015+ features 
-# have been compiled. If you are getting unexpected token errors,
-# then upgrade your node binaries. Note that this is expecting 
-# a postgres server. You can change the options in the `knexfile.js`
-# and use a different database if you want.
+# Run the API. You must use `node` here. All ES2015+ syntax have been compiled. 
+# If you are getting unexpected token errors, upgrade your node binaries. Note 
+# that this is expecting a PostgreSQL server. You can change the options in the 
+# `knexfile.js` and use a different database if you want.
 NODE_ENV=production API_PORT=8080 node ./api/index.js
 ```
 
@@ -100,7 +97,7 @@ Mocking APIs are typically time consuming and often becomes a waste as API chang
 
 ### Create or Update Database
 
-Being that GraphQL is an abstraction that is somewhat geared towards UI requirements, there is no need to map a one-to-one schema between GraphQL schema and Database Schema. Through the resolver, we can morph and transform and even fetch extra data without being constricted with the database schema. This allows for faster iteration and prototyping.# graphql-react-starter 
+Being that GraphQL is an abstraction that is somewhat geared towards UI requirements, there is no need to map a one-to-one schema between GraphQL schema and Database Schema. Through the resolver, we can morph and transform and even fetch extra data without being constricted with the database schema. This enables faster iteration and prototyping.
 
 ## Dependencies
 
@@ -152,6 +149,7 @@ Being that GraphQL is an abstraction that is somewhat geared towards UI requirem
 - [node-sass](https://github.com/sass/node-sass): Wrapper around libsass
 - [nodemon](https://github.com/remy/nodemon): Simple monitor script for use during development of a node.js app.
 - [package-json-to-readme](): Generate a README.md from package.json contents
+- [pm2](https://github.com/Unitech/pm2): Production process manager for Node.JS applications with a built-in load balancer.
 - [postcss-loader](): PostCSS loader for webpack
 - [react-hot-loader](https://github.com/gaearon/react-hot-loader): Tweak React components in real time.
 - [redbox-react](https://github.com/commissure/redbox-react): A redbox (rsod) component to display your errors.
