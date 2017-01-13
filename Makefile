@@ -34,13 +34,11 @@ build: clean build-client build-api
 
 .PHONY: build-client
 build-client:
-	NODE_ENV=$(NODE_ENV) \
-	webpack --config ./config/client.webpack.config.js
+	NODE_ENV=production webpack --config ./config/client.webpack.config.js
 
 .PHONY: build-api
 build-api:
-	NODE_ENV=$(NODE_ENV) \
-	webpack --config ./config/api.webpack.config.js
+	NODE_ENV=production webpack --config ./config/api.webpack.config.js
 
 .PHONY: install
 install:
@@ -127,4 +125,4 @@ deploy-api:
 # even if it causes error like if files do not exist
 .PHONY: clean
 clean:
-	@-rm -rf ./dist
+	-rm -rf ./dist
