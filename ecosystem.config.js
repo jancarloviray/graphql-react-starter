@@ -36,13 +36,13 @@ module.exports = {
       env: {
         NODE_ENV: 'development',
         DEBUG: process.env.DEBUG,
-        PORT: process.env.PORT,
+        CLIENT_PORT: process.env.CLIENT_PORT,
         API_PORT: process.env.API_PORT
       },
       env_production: {
         NODE_ENV: 'production',
         DEBUG: process.env.DEBUG,
-        PORT: process.env.PORT,
+        CLIENT_PORT: process.env.CLIENT_PORT,
         API_PORT: process.env.API_PORT
       }
     }

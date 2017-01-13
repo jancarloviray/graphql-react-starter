@@ -62,5 +62,5 @@ if (config.client.env === 'development') {
   })
 }
 
-app.listen(config.client.devServer.port)
-log(`Server started at http://localhost:${config.client.devServer.port}`)
+app.listen(config.client.devServer.client_port)
+log(`Server started at http://localhost:${config.client.devServer.client_port}`)

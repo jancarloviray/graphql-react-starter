@@ -43,7 +43,7 @@ make build
 
 # Run the client. `http-server` is just an example server. Use Nginx, Apache or 
 # whatever you like to run the client. Everything you need is compiled in .dist.
-NODE_ENV=production PORT=3000 API_PORT=8080 http-server ./dist
+NODE_ENV=production CLIENT_PORT=3000 API_PORT=8080 http-server ./dist
 
 # Run the API. You must use `node` here. All ES2015+ syntax have been compiled. 
 # If you are getting unexpected token errors, upgrade your node binaries. Note 

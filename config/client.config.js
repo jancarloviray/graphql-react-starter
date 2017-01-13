@@ -10,18 +10,18 @@ module.exports = {
     api: path.resolve(__dirname, '../src/api/')
   },
   devServer: {
-    port: process.env.PORT || 3000,
+    client_port: process.env.CLIENT_PORT || 3000,
     host: ip.address(),
   },
   globals: {
     'process.env': {
       'NODE_ENV': JSON.stringify(process.env.NODE_ENV),
-      'PORT': process.env.PORT,
+      'CLIENT_PORT': process.env.CLIENT_PORT,
       'API_PORT': process.env.API_PORT,
     },
     '__DEV__': process.env.NODE_ENV === 'development',
     '__PROD__': process.env.NODE_ENV === 'production',
-    '__PORT__': process.env.PORT,
+    '__CLIENT_PORT__': process.env.CLIENT_PORT,
     '__API_PORT__': process.env.API_PORT,
   },
 }

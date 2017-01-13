@@ -15,8 +15,8 @@ ifndef DEBUG
 	DEBUG = app:*
 endif
 
-ifndef PORT
-	PORT = 3000
+ifndef CLIENT_PORT
+	CLIENT_PORT = 3000
 endif
 
 ifndef API_PORT
@@ -47,34 +47,24 @@ install:
 	[[ -f $(DEVDB) ]] || $(MAKE) setup-db
 
 .PHONY: start
-start: killall
+start: kill
 	@if [[ $(NODE_ENV) == "production" ]] ; then \
 		echo "In production mode:" ; \
 		$(MAKE) build ; \
-		NODE_ENV=$(NODE_ENV) DEBUG=$(DEBUG) PORT=$(PORT) API_PORT=$(API_PORT) \
+		NODE_ENV=$(NODE_ENV) DEBUG=$(DEBUG) CLIENT_PORT=$(CLIENT_PORT) API_PORT=$(API_PORT) \
 		PM2_HOME='.pm2' pm2 start ecosystem.config.js --name=$(PROJECT_NAME) --env production ; \
-		echo "client port: $(PORT)" ; \
-		echo "api port: $(API_PORT)" ; \
+		echo "client port at $(CLIENT_PORT) and api port at $(API_PORT)" ; \
 	else \
 		echo "In development mode:" ; \
-		NODE_ENV=$(NODE_ENV) DEBUG=$(DEBUG) PORT=$(PORT) API_PORT=$(API_PORT) \
+		NODE_ENV=$(NODE_ENV) DEBUG=$(DEBUG) CLIENT_PORT=$(CLIENT_PORT) API_PORT=$(API_PORT) \
 		PM2_HOME='.pm2' pm2 start ecosystem.config.js --name=$(PROJECT_NAME) --env development ; \
-		echo "client port: $(PORT)" ; \
-		echo "api port: $(API_PORT)" ; \
+		echo "client port at $(CLIENT_PORT) and api port at $(API_PORT)" ; \
 	fi
 
-.PHONY: killall
-killall:
+.PHONY: kill
+kill:
 	PM2_HOME='.pm2' pm2 kill
 	@-rm -rf .pm2/*
-
-.PHONY: list
-list:
-	PM2_HOME='.pm2' pm2 list
-
-.PHONY: logs
-logs:
-	PM2_HOME='.pm2' DEBUG="*" pm2 logs --no-daemon
 
 .PHONY: monit
 monit:
