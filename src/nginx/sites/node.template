@@ -1,0 +1,18 @@
+# environment variables
+# CLIENT_PORT ${CLIENT_PORT}
+server {
+    listen 80 default_server;
+
+    location / {
+        proxy_pass http://client:${CLIENT_PORT};
+    }
+
+    location /graphql {
+        proxy_pass http://api:${API_PORT}/graphql;
+    }
+
+    location /.well-known/acme-challenge/ {
+        root /var/www/letsencrypt/;
+        log_not_found off;
+    }
+}

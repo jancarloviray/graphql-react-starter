@@ -1,0 +1,17 @@
+# environment variables
+# CLIENT_PORT ${CLIENT_PORT}
+server {
+    listen 443 default_server http2;
+
+    ssl on;
+    ssl_certificate /etc/ssl/cert1.pem;
+    ssl_certificate_key /etc/ssl/privkey1.pem;
+
+    location / {
+        proxy_pass http://client:${CLIENT_PORT};
+    }
+    
+    location /graphql {
+        proxy_pass http://api:${API_PORT}/graphql;
+    }
+}

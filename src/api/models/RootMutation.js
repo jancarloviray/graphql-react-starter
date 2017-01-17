@@ -1,4 +1,4 @@
-const db = require('../data/lib/db')
+const db = require('../../db/lib/db')
 
 exports.schema = [`
     type Mutation {

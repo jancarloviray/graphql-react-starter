@@ -52,6 +52,12 @@ NODE_ENV=production CLIENT_PORT=3000 API_PORT=8080 http-server ./dist
 NODE_ENV=production API_PORT=8080 node ./api/index.js
 ```
 
+## Docker 
+
+```shell
+make do-up
+```
+
 ## Roadmap and Status
 
 - [x] Hot Reloading
@@ -72,12 +78,11 @@ NODE_ENV=production API_PORT=8080 node ./api/index.js
 - [x] GraphQL mutation example
 - [x] Convert scripts to Makefile
 - [x] Process Management
-- [ ] Add Subscriptions (trigger query after mutate)
+- [x] Dockerize Each Layer
+- [x] docker-compose up
+- [ ] Make this work with PostgreSQL
+- [ ] Add extra security on Express
 - [ ] Authentication
-- [ ] Dockerize
-- [ ] PostgreSQL
-- [ ] Deploy to Cloud
-- [ ] Process Metrics and Health Checks
 
 ## Schema-First Design Steps
 

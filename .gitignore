@@ -41,5 +41,6 @@ jspm_packages
 *.temp
 *.tmp
 *.todo
+data
 dist
 .pm2

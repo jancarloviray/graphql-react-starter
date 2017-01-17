@@ -11,7 +11,7 @@ export default (store) => ({
       /*  Webpack - use require callback to define
           dependencies for bundling   */
       const Counter = require('./containers/CounterContainer').default
-      const reducer = require('./modules/counter').default
+      const reducer = require('./modules/Counter').default
 
       /*  Add the reducer to the store on key 'counter'  */
       injectReducer(store, { key: 'counter', reducer })

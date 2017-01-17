@@ -25,6 +25,7 @@ endif
 
 PROJECT_NAME = $(shell cat package.json | grep '"name"' | head -1 | awk -F: '{ print $$2 }' | sed 's/[",]//g' | tr -d '[[:space:]]')
 KNEXFILE = ./src/api/knexfile.js
+DOCKER_COMPOSE_FILE = ./docker-compose.yml
 DEVDB = ./$(shell grep -o "\([[:alpha:]]*\.sqlite3\)" ${KNEXFILE})
 DEFAULT_MIGRATION_NAME = migration
 DEFAULT_SEED_NAME = $(shell date +%s)-new-seed
@@ -104,6 +105,21 @@ setup-db:
 	[[ ! -f $(DEVDB) ]] || rm $(DEVDB)
 	NODE_ENV=$(NODE_ENV) $(MAKE) migrate
 	NODE_ENV=$(NODE_ENV) $(MAKE) seed
+
+.PHONY: do-build
+do-build:
+	NODE_ENV=$(NODE_ENV) DEBUG=$(DEBUG) CLIENT_PORT=$(CLIENT_PORT) API_PORT=$(API_PORT) \
+	docker-compose -f $(DOCKER_COMPOSE_FILE) -p $(PROJECT_NAME) build
+
+.PHONY: do-up
+do-up:
+	NODE_ENV=$(NODE_ENV) DEBUG=$(DEBUG) CLIENT_PORT=$(CLIENT_PORT) API_PORT=$(API_PORT) \
+	docker-compose -f $(DOCKER_COMPOSE_FILE) -p $(PROJECT_NAME) up
+
+.PHONY: do-down
+do-down:
+	NODE_ENV=$(NODE_ENV) DEBUG=$(DEBUG) CLIENT_PORT=$(CLIENT_PORT) API_PORT=$(API_PORT) \
+	docker-compose -f $(DOCKER_COMPOSE_FILE) -p $(PROJECT_NAME) down
 
 .PHONY: deploy-client
 deploy-client:

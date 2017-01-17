@@ -78,7 +78,9 @@ function output() {
     filename: '[name].[hash].js',
 
     // the url to the output directory resolved relative to the HTML page
-    publicPath: __PROD__ ? '/' : `http://${clientConfig.devServer.host}:${clientConfig.devServer.client_port}/`
+    // uncomment this if you're not using docker
+    // publicPath: __PROD__ ? '/' : `http://${clientConfig.devServer.host}:${clientConfig.devServer.client_port}/`
+    publicPath: '/',
   }
 }
 

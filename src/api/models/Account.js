@@ -1,4 +1,4 @@
-const db = require('../data/lib/db')
+const db = require('../../db/lib/db')
 
 exports.schema = [`
     type Account {
@@ -18,7 +18,7 @@ exports.schema = [`
 exports.resolvers = {
   Account: {
     owners({ accountId }) {
-      return  db
+      return db
         .select('Users.*')
         .from('Users_Accounts')
         .join('Accounts', 'Users_Accounts.accountId', 'Accounts.accountId')

@@ -5,13 +5,13 @@ const config = {
     client: 'sqlite3',
     debug: process.env.NODE_ENV === 'development',
     connection: {
-      filename: path.resolve(__dirname, './devdb.sqlite3'),
+      filename: path.resolve(__dirname, '../db/devdb.sqlite3'),
     },
     seeds: {
-      directory: './data/seeds'
+      directory: '../db/seeds'
     },
     migrations: {
-      directory: './data/migrations',
+      directory: '../db/migrations',
       tableName: 'knex_migrations'
     },
     useNullAsDefault: true,
@@ -25,15 +25,15 @@ const config = {
   },
   production: {
     client: 'pg',
-    debug: false,
+    debug: process.env.NODE_ENV === 'development',
     connection: {
-      host: 'localhost',
-      user: 'postgres',
-      database: 'app',
-      password: 'pass'
+      host: process.env.POSTGRES_HOST || 'db',
+      user: process.env.POSTGRES_USER || 'postgres',
+      database: process.env.POSTGRES_DB || 'postgres',
+      password: process.env.POSTGRES_PASSWORD
     },
     migrations: {
-      directory: './data/migrations',
+      directory: '../db/migrations',
       tableName: 'knex_migrations'
     },
   }

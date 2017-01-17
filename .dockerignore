@@ -1,0 +1,10 @@
+node_modules
+npm-debug.log
+*.temp
+*.tmp
+*.todo
+dist
+.pm2
+.git
+*.md
+.cache

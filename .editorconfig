@@ -23,7 +23,7 @@ end_of_line = lf
 insert_final_newline = true
 # Denotes whether to trim whitespace at the end of lines
 # Possible values - true, false
-trim_trailing_whitespace = true
+trim_trailing_whitespace = false
 max_line_length = 80
 
 [*.md]

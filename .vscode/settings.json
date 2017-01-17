@@ -1,3 +1,10 @@
 {
-    "eslint.enable": true
+  "files.exclude": {
+    "**/dist": true,
+    "**/.pm2": true,
+    "**/.min.*": true,
+    "**/*.lock": true
+    // "node_modules": true
+  },
+  "eslint.enable": true
 }

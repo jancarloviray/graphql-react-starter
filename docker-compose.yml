@@ -1,0 +1,84 @@
+version: "2"
+
+# https://docs.docker.com/compose/compose-file
+# - `ports` for public, and `expose` for linked containers
+# - `args` when passing env vars on custom dockerfiles and `environment` for prebuilt images
+
+services:
+
+  api:
+    build:
+      context: .
+      dockerfile: ./src/api/Dockerfile
+      args: 
+        - NODE_ENV=${NODE_ENV}
+        - API_PORT=${API_PORT}
+        - DEBUG=${DEBUG}
+    container_name: api
+    depends_on:
+      - db
+    restart: on-failure:10
+    networks:
+      - back
+    expose:
+      - "${API_PORT}"
+
+  client:
+    build:
+      context: .
+      dockerfile: ./src/client/Dockerfile
+      args:
+        - NODE_ENV=${NODE_ENV}
+        - CLIENT_PORT=${CLIENT_PORT}
+        - API_PORT=${API_PORT}
+        - DEBUG=${DEBUG}
+    container_name: client
+    depends_on:
+      - api
+    restart: on-failure:10
+    networks:
+      - front
+    expose:
+      - "${CLIENT_PORT}"
+
+  db:
+    image: postgres:9.6
+    container_name: db
+    restart: on-failure:10
+    volumes: 
+      - "./data:/var/lib/postgresql/data"
+    networks:
+      - back
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=db
+    expose:
+      - "5432"
+
+  nginx:
+    build:
+      context: ./src/nginx/
+      dockerfile: ./Dockerfile
+      args:
+        - CLIENT_PORT=${CLIENT_PORT}
+        - API_PORT=${API_PORT}
+        - WEB_SSL=false
+        - SELF_SIGNED=false
+        - NO_DEFAULT=false
+    container_name: nginx
+    depends_on:
+      - client
+      - api
+    restart: on-failure:10
+    networks:
+      - front
+      - back
+    ports:
+      - "80:80"
+      - "443:443"
+    tty: true
+
+networks:
+  front:
+  back:

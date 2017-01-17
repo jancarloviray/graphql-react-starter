@@ -6,7 +6,7 @@ const cors = require('cors')
 const PrettyError = require('pretty-error')
 const debug = require('debug')
 
-const db = require('./data/lib/db')
+const db = require('../db/lib/db')
 const schema = require('./schema')
 
 const pe = new PrettyError()
