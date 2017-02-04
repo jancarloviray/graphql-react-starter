@@ -80,9 +80,6 @@ make do-up
 - [x] Process Management
 - [x] Dockerize Each Layer
 - [x] docker-compose up
-- [ ] Make this work with PostgreSQL
-- [ ] Add extra security on Express
-- [ ] Authentication
 
 ## Schema-First Design Steps
 
